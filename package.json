@@ -11,5 +11,9 @@
   "license": "MIT",
   "devDependencies": {
     "typescript": "^2.9.2"
+  },
+  "dependencies": {
+    "@types/puppeteer": "^1.5.0",
+    "puppeteer": "^1.5.0"
   }
 }
