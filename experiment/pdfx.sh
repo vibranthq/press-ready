@@ -3,13 +3,11 @@
 set -e
 
 echo Export a webpage as PDF
-# ts-node chrome-pdf.ts
-# identify output.pdf
+ts-node export-pdf.ts
 
-echo Remove PDF annotations
-pdftops -level3 output.pdf output.ps
-pstopdf output.ps -o mod.pdf
-identify mod.pdf
+# echo Remove PDF annotations
+# pdftops -level3 output-webkit.pdf postscript.ps
+# pstopdf postscript.ps -o mod.pdf
 
 echo Make PDF compliant with PDF/X-1a:2001
 gs \
@@ -31,3 +29,4 @@ gs \
   -sDEVICE=pdfwrite \
   -sOutputFile=cmyk.pdf $PWD/PDFX_def.ps mod.pdf
 identify cmyk.pdf
+pdffonts cmyk.pdf

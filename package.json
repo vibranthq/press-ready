@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@types/puppeteer": "^1.5.0",
-    "puppeteer": "^1.5.0"
+    "puppeteer": "^1.5.0",
+    "wkhtmltopdf": "^0.3.4"
   }
 }
