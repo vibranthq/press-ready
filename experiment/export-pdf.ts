@@ -5,12 +5,12 @@ async function exportPDFChrome(url: string) {
   const browser = await puppeteer.launch()
   const page = await browser.newPage()
   await page.goto(url, { waitUntil: ['networkidle0'], timeout: 10000 })
-  await page.setViewport({
-    width: 1280,
-    height: 1024,
-  })
+  // await page.setViewport({
+  //   width: 2100,
+  //   height: 2970,
+  // })
   await page.pdf({
-    path: './output-chrome.pdf',
+    path: './output.pdf',
     format: 'A4',
     width: '210mm',
     height: '297mm',
@@ -21,7 +21,7 @@ async function exportPDFChrome(url: string) {
 
 function exportPDFWebkit(url: string) {
   wkhtmltopdf(url, {
-    output: 'output-webkit.pdf',
+    output: 'output.pdf',
     pageSize: 'A4',
     imageDpi: 300,
     dpi: 300,
@@ -36,5 +36,6 @@ function exportPDFWebkit(url: string) {
   })
 }
 
-const targetURL = 'https://uechi.io/blog/2018/04/13/camping'
-exportPDFWebkit(targetURL)
+const targetURL =
+  'file:///Users/uetchy/Repos/src/github.com/uetchy/vibrant-core/experiment/book2.html'
+exportPDFChrome(targetURL)
