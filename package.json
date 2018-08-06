@@ -4,7 +4,7 @@
   "description": "ePUB ready publishing platform.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc"
   },
   "keywords": [],
   "author": "Yasuaki Uechi <y@uechi.io> (https://uechi.io/)",
@@ -13,7 +13,9 @@
     "typescript": "^2.9.2"
   },
   "dependencies": {
+    "@types/markdown-it": "0.0.4",
     "@types/puppeteer": "^1.5.0",
+    "markdown-it": "^8.4.2",
     "puppeteer": "^1.5.0",
     "wkhtmltopdf": "^0.3.4"
   }
