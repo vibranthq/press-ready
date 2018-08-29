@@ -5,11 +5,15 @@ import path from 'path'
 import os from 'os'
 import fs from 'fs'
 
-export function exportPDF(inputMarkdownSource: string, outputPath: string) {
-  // Input markdown to HTML
+function convertToHTML(markdownSourceString: string) {
   const md = MarkdownIt()
-  const result = md.render(inputMarkdownSource)
-  console.log(result)
+  const result = md.render(markdownSourceString)
+  return result
+}
+
+export function exportPDF(markdownSourceString: string, outputPath: string) {
+  // Input markdown to HTML
+  const result = convertToHTML(markdownSourceString)
 
   // HTML to PDF
   const workspaceDir = os.tmpdir()
@@ -18,7 +22,7 @@ export function exportPDF(inputMarkdownSource: string, outputPath: string) {
   console.log(outputPDFPath)
 }
 
-async function exportPDFChrome(url: string) {
+async function exportPDFChrome(url: string, outputPath: string) {
   const browser = await puppeteer.launch()
   const page = await browser.newPage()
   await page.goto(url, { waitUntil: ['networkidle0'], timeout: 10000 })
@@ -27,7 +31,7 @@ async function exportPDFChrome(url: string) {
   //   height: 2970,
   // })
   await page.pdf({
-    path: './output.pdf',
+    path: outputPath,
     format: 'A4',
     width: '210mm',
     height: '297mm',
