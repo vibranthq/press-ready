@@ -1,5 +1,6 @@
 import MarkdownIt from 'markdown-it'
 import puppeteer from 'puppeteer'
+//@ts-ignore
 import wkhtmltopdf from 'wkhtmltopdf'
 import path from 'path'
 import os from 'os'
@@ -18,12 +19,14 @@ export function exportPDF(markdownSourceString: string, outputPath: string) {
   // HTML to PDF
   const workspaceDir = os.tmpdir()
   const outputPDFPath = path.join(workspaceDir, 'output.pdf')
-  const exported_path = exportPDFWebkit(result, outputPDFPath)
+  const exported_path = exportPDFWebKit(result, outputPDFPath)
   console.log(outputPDFPath)
 }
 
-async function exportPDFChrome(url: string, outputPath: string) {
-  const browser = await puppeteer.launch()
+export async function exportPDFChrome(url: string, outputPath: string) {
+  const browser = await puppeteer.launch({
+    args: ['--no-sandbox', '--disable-setuid-sandbox'],
+  })
   const page = await browser.newPage()
   await page.goto(url, { waitUntil: ['networkidle0'], timeout: 10000 })
   // await page.setViewport({
@@ -40,7 +43,7 @@ async function exportPDFChrome(url: string, outputPath: string) {
   await browser.close()
 }
 
-function exportPDFWebkit(sourceString: string, outputPath: string) {
+export function exportPDFWebKit(sourceString: string, outputPath: string) {
   wkhtmltopdf(sourceString, {
     pageSize: 'A4',
     imageDpi: 300,

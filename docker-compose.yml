@@ -1,0 +1,8 @@
+version: '2.1'
+
+services:
+  core:
+    image: core
+    build: .
+    volumes:
+      - $PWD:/datadir

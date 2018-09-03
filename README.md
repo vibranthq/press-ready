@@ -1,10 +1,6 @@
-# Vibrant
+# Vibrant Core
 
-ePUB ready publishing platform.
-
-## Install
-
-```
-npm install @vib/core
-npm install -g @vib/cli
+```bash
+docker-compose build
+docker-compose run core "<url-to-render>"
 ```

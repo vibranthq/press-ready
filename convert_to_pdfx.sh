@@ -2,12 +2,19 @@
 
 set -e
 
-echo Export a webpage as PDF
-ts-node export-pdf.ts
+INPUT_FILE=$1
+OUTPUT_FILE=/datadir/output.pdf
+
+echo $@
+echo in: $INPUT_FILE
+echo out: $OUTPUT_FILE
+
+echo Convert HTML to PDF
+./node_modules/.bin/ts-node ./converter/cli.ts "$INPUT_FILE" rendered.pdf
 
 echo Remove PDF annotations
-pdftops -level3 output.pdf postscript.ps
-pstopdf postscript.ps -o mod.pdf
+pdf2ps -level3 ./rendered.pdf ./postscript.ps
+ps2pdf ./postscript.ps ./purified.pdf
 
 echo Make PDF compliant with PDF/X-1a:2001
 gs \
@@ -27,6 +34,6 @@ gs \
   -sColorConversionStrategyForImages=CMYK \
   -sOutputICCProfile=JapanColor2001Coated.icc \
   -sDEVICE=pdfwrite \
-  -sOutputFile=cmyk.pdf $PWD/PDFX_def.ps mod.pdf
-identify cmyk.pdf
-pdffonts cmyk.pdf
+  -sOutputFile="$OUTPUT_FILE" $PWD/PDFX_def.ps purified.pdf
+identify $OUTPUT_FILE
+pdffonts $OUTPUT_FILE
