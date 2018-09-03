@@ -1,15 +1,30 @@
 {
   "name": "vibrant",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "ePUB ready publishing platform.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc",
+    "test": "mocha"
   },
   "keywords": [],
   "author": "Yasuaki Uechi <y@uechi.io> (https://uechi.io/)",
   "license": "MIT",
   "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^5.2.0",
     "typescript": "^2.9.2"
+  },
+  "dependencies": {
+    "@types/execa": "^0.9.0",
+    "@types/listr": "^0.13.0",
+    "@types/markdown-it": "0.0.4",
+    "@types/puppeteer": "^1.5.0",
+    "execa": "^1.0.0",
+    "listr": "^0.14.2",
+    "markdown-it": "^8.4.2",
+    "puppeteer": "^1.5.0",
+    "ts-node": "^7.0.1",
+    "wkhtmltopdf": "^0.3.4"
   }
 }

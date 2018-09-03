@@ -1,3 +1,7 @@
+/lib
+.vscode
+*.pdf
+postscript.ps
 
 # Created by https://www.gitignore.io/api/node
 
