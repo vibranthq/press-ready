@@ -25,4 +25,4 @@ WORKDIR /workdir
 COPY package.json package-lock.json ./
 RUN npm install
 COPY . .
-ENTRYPOINT [ "./convert_to_pdfx.sh" ]
+ENTRYPOINT [ "./node_modules/.bin/ts-node", "./converter/cli.ts" ]

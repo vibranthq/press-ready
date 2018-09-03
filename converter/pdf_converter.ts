@@ -6,20 +6,16 @@ import path from 'path'
 import os from 'os'
 import fs from 'fs'
 
-function convertToHTML(markdownSourceString: string) {
+export function convertToHTML(markdownSourceString: string) {
   const md = MarkdownIt()
   const result = md.render(markdownSourceString)
   return result
 }
 
-export function exportPDF(markdownSourceString: string, outputPath: string) {
-  // Input markdown to HTML
-  const result = convertToHTML(markdownSourceString)
-
-  // HTML to PDF
+export function exportPDF(inputHTMLPath: string, outputPath: string) {
   const workspaceDir = os.tmpdir()
   const outputPDFPath = path.join(workspaceDir, 'output.pdf')
-  const exported_path = exportPDFWebKit(result, outputPDFPath)
+  const exported_path = exportPDFWebKit(inputHTMLPath, outputPDFPath)
   console.log(outputPDFPath)
 }
 

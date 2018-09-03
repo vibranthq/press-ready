@@ -2,5 +2,5 @@
 
 ```bash
 docker-compose build
-docker-compose run core "<url-to-render>"
+docker-compose run core "manuscript.md"
 ```

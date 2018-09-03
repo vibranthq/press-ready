@@ -5,7 +5,10 @@ set -e
 INPUT_FILE=$1
 OUTPUT_FILE=/datadir/output.pdf
 
-echo $@
+if [[ -z $INPUT_FILE ]]; then
+  echo specify input. aborting
+  exit 0
+fi
 echo in: $INPUT_FILE
 echo out: $OUTPUT_FILE
 
@@ -32,8 +35,8 @@ gs \
   -sProcessColorModel=DeviceCMYK \
   -sColorConversionStrategy=CMYK \
   -sColorConversionStrategyForImages=CMYK \
-  -sOutputICCProfile=JapanColor2001Coated.icc \
+  -sOutputICCProfile=assets/JapanColor2001Coated.icc \
   -sDEVICE=pdfwrite \
-  -sOutputFile="$OUTPUT_FILE" $PWD/PDFX_def.ps purified.pdf
+  -sOutputFile="$OUTPUT_FILE" $PWD/assets/PDFX_def.ps purified.pdf
 identify $OUTPUT_FILE
 pdffonts $OUTPUT_FILE
