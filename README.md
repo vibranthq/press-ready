@@ -1,6 +1,6 @@
 # Vibrant Core
 
-Maker your PDFs compliant with PDF/X-1a:Japan 2001 Coated.
+Make your PDFs compliant with PDF/X-1a.
 
 ## Prerequisite
 
@@ -30,3 +30,13 @@ docker-compose run core input.pdf [output.pdf]
 docker build -t vibranthq/core .
 docker run -it -v $PWD/workdir vibrant/core input.pdf [output.pdf]
 ```
+
+## Configuration
+
+### Color Profile
+
+There is a support only for **Japan 2001 Coated**. If you have any suggestions, please consider submitting an issue.
+
+### Color Mode
+
+Currently supports **CMYK** and planned to support **Grayscale** color mode.
