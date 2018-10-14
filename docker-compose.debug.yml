@@ -1,8 +1,0 @@
-version: '2.1'
-
-services:
-  core:
-    image: core
-    build:
-      context: .
-      dockerfile: Dockerfile
