@@ -5,4 +5,4 @@ services:
     image: core
     build: .
     volumes:
-      - $PWD:/datadir
+      - $PWD:/workdir
