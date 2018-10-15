@@ -4,18 +4,23 @@ set -e
 
 ROOT_DIR=/usr/src/app
 WORK_DIR=/workdir
-INPUT_FILE=$1
-OUTPUT_FILE=${2:-${WORK_DIR}/output.pdf}
+INPUT_PATH=$1
+OUTPUT_PATH=${2:-${WORK_DIR}/output.pdf}
 
-if [[ -z $INPUT_FILE ]]; then
+if [[ -z $INPUT_PATH ]]; then
   echo "==> specify input. aborting"
-  exit 0
+  exit 1
 fi
-echo "==> in:  ${INPUT_FILE}"
-echo "==> out: ${OUTPUT_FILE}"
+echo "==> in:  ${INPUT_PATH}"
+echo "==> out: ${OUTPUT_PATH}"
+
+if [[ $INPUT_PATH == s3://* ]]; then
+  aws s3 cp ${INPUT_PATH} /tmp/input.pdf
+  INPUT_PATH=/tmp/input.pdf
+fi
 
 # echo "=> Removing PDF annotations"
-# pdf2ps -level3 $INPUT_FILE ${ROOT_DIR}/postscript.ps
+# pdf2ps -level3 $INPUT_PATH ${ROOT_DIR}/postscript.ps
 # ps2pdf ${ROOT_DIR}/postscript.ps ${ROOT_DIR}/purified.pdf
 
 echo "==> Generating PDF compliant with PDF/X-1a:2001"
@@ -41,7 +46,10 @@ gs \
   -sColorConversionStrategy=CMYK \
   -sColorConversionStrategyForImages=CMYK \
   -sOutputICCProfile=${ICC_PROFILE_PATH} \
-  -sOutputFile="${OUTPUT_FILE}" ${PDFX_DEF_PATH} $INPUT_FILE
+  -sOutputFile="/tmp/output.pdf" ${PDFX_DEF_PATH} $INPUT_PATH
 
-echo "==> Diagnostics for pdffonts"
-pdffonts $OUTPUT_FILE
+if [[ $OUTPUT_PATH == s3://* ]]; then
+  aws s3 cp /tmp/output.pdf ${OUTPUT_PATH}
+else
+  cp /tmp/output.pdf ${OUTPUT_PATH}
+fi

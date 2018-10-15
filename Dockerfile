@@ -12,17 +12,17 @@ RUN apt-get update && apt-get install -y build-essential curl
 # RUN curl -sL https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.bionic_amd64.deb -o wkhtmltox.deb
 # RUN gdebi --n wkhtmltox.deb && rm wkhtmltox.deb
 
-# Xpdf / Ghostscript
-RUN apt-get update && apt-get install -y xpdf ghostscript
+# Xpdf / Ghostscript / ImageMagick
+RUN apt-get update && apt-get install -y xpdf ghostscript imagemagick
 
 # Chrome / Puppeteer
 # RUN apt-get update && apt-get install -y libasound2-dev libxss-dev
 
-# ImageMagick
-RUN apt-get update && apt-get install -y imagemagick
+# AWS
+RUN apt-get update && apt-get install -y python3-pip && pip3 install awscli
 
 WORKDIR /usr/src/app
 COPY . .
 
 WORKDIR /workdir
-ENTRYPOINT [ "bash", "/usr/src/app/convert.sh" ]
+ENV PATH "/usr/src/app:$PATH"

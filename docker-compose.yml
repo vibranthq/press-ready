@@ -4,5 +4,6 @@ services:
   core:
     image: core
     build: .
+    env_file: .env
     volumes:
       - $PWD:/workdir
