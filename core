@@ -15,6 +15,10 @@ echo "==> in:  ${INPUT_PATH}"
 echo "==> out: ${OUTPUT_PATH}"
 
 if [[ $INPUT_PATH == s3://* ]]; then
+  if [[ -z $AWS_ACCESS_KEY_ID ]]; then
+    echo "==> specify AWS_ACCESS_KEY_ID. aborting"
+    exit 1
+  fi
   aws s3 cp ${INPUT_PATH} /tmp/input.pdf
   INPUT_PATH=/tmp/input.pdf
 fi
@@ -28,6 +32,7 @@ PDFX_DEF_PATH=$ROOT_DIR/assets/PDFX_def.ps
 ICC_PROFILE_PATH=$ROOT_DIR/assets/JapanColor2001Coated.icc
 echo "==> PDFX_def.ps = ${PDFX_DEF_PATH}"
 echo "==> ICC = ${ICC_PROFILE_PATH}"
+echo "==> INPUT = ${INPUT_PATH}"
 gs \
   -dPDFX \
   -dBATCH \
