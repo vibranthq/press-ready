@@ -15,8 +15,8 @@ echo "==> in:  ${INPUT_PATH}"
 echo "==> out: ${OUTPUT_PATH}"
 
 if [[ $INPUT_PATH == s3://* ]]; then
-  if [[ -z $AWS_ACCESS_KEY_ID ]]; then
-    echo "==> specify AWS_ACCESS_KEY_ID. aborting"
+  if [[ -z $AWS_ACCESS_KEY_ID ]] || [[ -z $AWS_SECRET_ACCESS_KEY ]]; then
+    echo "==> specify both AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY. aborting"
     exit 1
   fi
   aws s3 cp ${INPUT_PATH} /tmp/input.pdf
