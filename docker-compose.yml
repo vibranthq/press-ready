@@ -3,6 +3,5 @@ services:
   pdfx:
     image: pdfx
     build: .
-    env_file: .env
     volumes:
       - $PWD:/workdir
