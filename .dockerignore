@@ -8,3 +8,4 @@ docker-compose*
 .vscode
 *.pdf
 .env
+.DS_Store

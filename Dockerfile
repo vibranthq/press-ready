@@ -22,7 +22,8 @@ RUN apt-get update && apt-get install -y xpdf ghostscript imagemagick
 RUN apt-get update && apt-get install -y python3-pip && pip3 install awscli
 
 WORKDIR /usr/src/app
-COPY . .
+COPY pdfx pdfx
+COPY assets/* ./assets/
 
 WORKDIR /workdir
 ENV PATH "/usr/src/app:$PATH"

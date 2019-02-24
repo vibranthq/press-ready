@@ -24,8 +24,8 @@ for fetching and uploading AWS S3 resources, you need to set env var for `AWS_AC
 
 ```bash
 docker build -t vibranthq/pdfx .
-docker run --rm -it -v $PWD/workdir vibrant/pdfx ./input.pdf ./output.pdf
-docker run --rm -it vibrant/pdfx s3://bucket/input.pdf s3://bucket/output.pdf
+docker run --rm -it -v $PWD/workdir vibranthq/pdfx ./input.pdf ./output.pdf
+docker run --rm -it vibranthq/pdfx s3://bucket/input.pdf s3://bucket/output.pdf
 ```
 
 ### Docker Compose
