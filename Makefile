@@ -1,5 +1,5 @@
 build:
-	docker build -t vibranthq/core .
+	docker build -t vibranthq/pdfx .
 
 publish: build
-	docker push vibranthq/core
+	docker push vibranthq/pdfx

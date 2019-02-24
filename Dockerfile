@@ -1,5 +1,5 @@
 FROM ubuntu:18.04
-LABEL Name=core Version=0.1.0
+LABEL Name=pdfx Version=0.1.0
 
 RUN apt-get update && apt-get install -y build-essential curl
 
@@ -26,3 +26,4 @@ COPY . .
 
 WORKDIR /workdir
 ENV PATH "/usr/src/app:$PATH"
+ENTRYPOINT [ "pdfx" ]

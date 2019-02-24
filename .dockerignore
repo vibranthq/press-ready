@@ -6,3 +6,5 @@ docker-compose*
 .git
 .gitignore
 .vscode
+*.pdf
+.env
