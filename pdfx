@@ -45,6 +45,9 @@ echo "> PDFX_def.ps = ${PDFX_DEF_PATH}"
 echo "> ICC = ${ICC_PROFILE_PATH}"
 echo "> INPUT = /tmp/input.pdf"
 
+# -dUseCropBox \
+# -dUseTrimBox \
+# -dUseBleedBox \
 gs \
   -dPDFX \
   -dBATCH \
@@ -55,9 +58,6 @@ gs \
   -dShowAnnots=false \
   -dNoOutputFonts \
   -dPDFSETTINGS=/prepress \
-  -dUseCropBox \
-  -dUseTrimBox \
-  -dUseBleedBox \
   -dPrinted \
   -sProcessColorModel=DeviceCMYK \
   -sColorConversionStrategy=CMYK \
