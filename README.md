@@ -26,7 +26,20 @@ docker run --rm -it \
   --output ./output.pdf
 ```
 
-Run `docker run --rm -it -v $PWD:/workdir vibranthq/press-ready --help` to show help.
+Run `docker run --rm vibranthq/press-ready --help` to show help.
+
+```bash
+➜ docker run --rm vibranthq/press-ready --help
+Options:
+  --version          Show version number                               [boolean]
+  --input            Input file path                                  [required]
+  --output           Output file path                  [default: "./output.pdf"]
+  --gray-scale       Use gray scale color space instead of CMYK
+                                                      [boolean] [default: false]
+  --enforce-outline  Convert embedded fonts to outlined fonts          [boolean]
+  --boundary-boxes   Add boundary boxes on every page [boolean] [default: false]
+  --help             Show help                                         [boolean]
+```
 
 ## Options
 
