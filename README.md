@@ -106,6 +106,9 @@ press-ready --input <input.pdf> --output <output.pdf>
 
 ### Pull resource from AWS S3
 
+> ! This feature is not yet available in press-ready v2.
+> If you need this feature, use press-ready v1 (`vibranthq/pdfx`) image instead.
+
 Just run with S3 URL: `docker run -t vibranthq/press-ready <input s3url> <output s3url>`.
 
 For fetching and uploading AWS S3 resources, you need to set env var `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`.
