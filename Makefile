@@ -3,3 +3,6 @@ build:
 
 publish: build
 	docker push vibranthq/pdfx
+
+test: build
+	
