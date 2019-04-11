@@ -16,7 +16,13 @@
 
 `vibranthq/press-ready` イメージを[Docker Hub](https://hub.docker.com/r/vibranthq/press-ready/)から Pull してください。
 
-次のコマンドを実行します: `docker run -it -v $PWD:/workdir vibranthq/press-ready --input <input.pdf> --output <output.pdf>`.
+そして次のコマンドで`input.pdf`を変換して`output.pdf`に書き出します:
+
+```
+docker run -it -v $PWD:/workdir vibranthq/press-ready --input <input.pdf> --output <output.pdf>
+```
+
+`--input`と`--output`に指定できるのは、現在のフォルダあるいはそのサブフォルダ内のファイルのみです。なぜなら、`-v`によって現在のフォルダが Docker 内の`/workdir`にマウントされており、press-ready は`/workdir`を基準ディレクトリとして動作するからです。
 
 ```bash
 docker pull vibranthq/press-ready
@@ -24,8 +30,8 @@ docker pull vibranthq/press-ready
 docker run --rm -it \
   -v $PWD:/workdir \
   vibranthq/press-ready \
-  --input ./input.pdf \
-  --output ./output.pdf
+  --input ./dist/input.pdf \
+  --output ./dist/output.pdf
 ```
 
 `docker run --rm vibranthq/press-ready --help`を実行してヘルプを表示します。
@@ -60,7 +66,7 @@ docker run --rm -it \
 
 ### デジタルトンボ
 
-オプション`--boundary-boxes`は生成された PDF に TrimBox、CropBox、BleedBox を埋め込みます。
+オプション`--boundary-boxes`を指定すると、生成された PDF に TrimBox、CropBox、BleedBox が埋め込まれます。
 
 ```bash
 docker run --rm -it \
@@ -74,7 +80,7 @@ docker run --rm -it \
 ### フォントのアウトライン化
 
 press-ready はフォントのアウトライン化が必要かどうかを自動的に判断するので、このオプションを明示的に指定する必要はありません。
-しかし、`--enforce-outline`あるいは`--no-enforce-outline`オプションを渡すことであえて挙動を制御することが可能です。
+しかし、`--enforce-outline`あるいは`--no-enforce-outline`オプションを渡すことであえて挙動を制御することができます。
 
 ```bash
 docker run --rm -it \
@@ -93,13 +99,13 @@ docker run --rm -it \
 
 ### `press-ready` コマンド
 
-シェルに `press-ready` コマンドを alias することで、普通のコマンドのように使うことができます。
+shell コンフィグに `press-ready` コマンドを alias することで、長いコマンドをタイプせずに済みます。
 
 ```bash
 alias press-ready="docker run -it -v \$PWD:/workdir vibranthq/press-ready"
 ```
 
-あとは普通のコマンドと同じように `press-ready` をタイプするだけです:
+あとは普通のコマンドと同じように `press-ready` とタイプするだけです:
 
 ```bash
 press-ready --help
@@ -122,6 +128,12 @@ docker run --rm -it \
   vibranthq/pdfx s3://bucket/input.pdf s3://bucket/output.pdf
 ```
 
+## リアルワールド
+
+press-ready を組み込んでいるプロジェクトを教えてください！
+
+- [Re:VIEW の公式 FAQ](https://review-knowledge-ja.readthedocs.io/ja/latest/faq/faq-tex.html#1884868db054ed23b6b02a3d2a4b3c9b)で、PDF を印刷可能なフォーマットに変換する方法の一つとして press-ready が紹介されています。
+
 ## 貢献
 
 プルリクエスト大歓迎です！プルリクエストを作成する前に `make test` でテストを通過するかを確認してください。
@@ -135,7 +147,7 @@ make test
 
 ### 貢献者
 
-素晴らしい貢献者の一覧です (`git shortlog -sn` によって作成)
+素晴らしい貢献者の一覧です！ (`git shortlog -sn` によって作成)
 
 - Yasuaki Uechi
 - Kenshi Muto
