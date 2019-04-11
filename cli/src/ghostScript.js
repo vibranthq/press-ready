@@ -2,17 +2,19 @@ const fs = require('fs')
 const execa = require('execa')
 const Mustache = require('mustache')
 const debug = require('debug')('press-ready')
+const { join } = require('path')
+const { tmpdir } = require('os')
 
 async function ghostScript(
-  inputPath = './input.pdf',
-  outputPath = './output.pdf',
-  pdfxDefTemplatePath = './assets/PDFX_def.ps.mustache',
-  iccProfilePath = './assets/JapanColor2001Coated.icc',
+  inputPath,
+  outputPath,
+  pdfxDefTemplatePath,
+  iccProfilePath,
   grayScale = false,
   enforceOutline = false,
   boundaryBoxes = false
 ) {
-  const pdfxDefPath = '/tmp/def.ps'
+  const pdfxDefPath = join(tmpdir(), 'press-ready-def.ps')
   const gsCommand = 'gs'
   const gsOptions = [
     '-dPDFX',
@@ -55,7 +57,7 @@ async function ghostScript(
   // generate PDFX_def.ps
   pdfxDefTemplate = fs.readFileSync(pdfxDefTemplatePath, 'utf-8')
   const pdfxDef = Mustache.render(pdfxDefTemplate, {
-    title: 'Generated PDF',
+    title: 'Auto-generated PDF (press-ready)',
     iccProfilePath,
   })
   fs.writeFileSync(pdfxDefPath, pdfxDef, 'utf-8')
