@@ -8,8 +8,8 @@ async function ghostScript(
   pdfxDefTemplatePath = './assets/PDFX_def.ps.mustache',
   iccProfilePath = './assets/JapanColor2001Coated.icc',
   grayScale = false,
-  forceOutline = true,
-  addBoxes = false
+  enforceOutline = true,
+  boundaryBoxes = false
 ) {
   const pdfxDefPath = '/tmp/def.ps'
   const gsCommand = 'gs'
@@ -25,10 +25,10 @@ async function ghostScript(
     '-dPrinted',
     `-sOutputFile=${outputPath}`,
   ]
-  if (addBoxes) {
+  if (boundaryBoxes) {
     gsOptions.push('-dUseCropBox', '-dUseTrimBox', '-dUseBleedBox')
   }
-  if (forceOutline) {
+  if (enforceOutline) {
     gsOptions.push('-dNoOutputFonts')
   }
   if (grayScale) {

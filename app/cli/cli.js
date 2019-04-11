@@ -1,11 +1,6 @@
 #!/usr/bin/env node
 
-const argv = require('yargs')
-  .option('input')
-  .option('output')
-  .boolean('grayScale')
-  .boolean('forceOutline')
-  .boolean('trimBoxes').argv
+const yargs = require('yargs')
 const path = require('path')
 const chalk = require('chalk')
 
@@ -31,8 +26,10 @@ async function inspectPDF(filePath) {
 
   // Check if all fonts are embedded
   const isEmbedded = fonts.every((font) => font.emb === 'yes')
+
   // Check if all fonts are a subset of font
   const isSubset = fonts.every((font) => font.sub === 'yes')
+
   if (!isEmbedded || !isSubset) {
     console.log(chalk.gray('===>'), chalk.red('! Should enforce outline fonts'))
   } else {
@@ -41,6 +38,7 @@ async function inspectPDF(filePath) {
       chalk.green('* No need to enforce outline fonts')
     )
   }
+
   return {
     isEmbedded,
     isSubset,
@@ -48,8 +46,8 @@ async function inspectPDF(filePath) {
   }
 }
 
-async function main() {
-  const { input, output, grayScale, forceOutline, trimBoxes } = argv
+async function main(argv) {
+  const { input, output, grayScale, enforceOutline, boundaryBoxes } = argv
   if (!input || !output) {
     console.log(chalk.red('===> No input given'))
     process.exit()
@@ -64,13 +62,18 @@ async function main() {
   console.log(chalk.gray('===> Input:'), input)
   console.log(chalk.gray('===> Output:'), output)
   console.log(
-    chalk.gray('===> Color mode:'),
+    chalk.gray('===> Color Mode:'),
     grayScale
-      ? chalk.gray('Gray')
+      ? chalk.white('Gray')
       : `${chalk.cyan('C')}${chalk.red('M')}${chalk.yellow('Y')}${chalk.white(
           'K'
         )}`
   )
+  console.log(
+    chalk.gray('===> Enforce Outline:'),
+    enforceOutline || shouldEnforceOutline
+  )
+  console.log(chalk.gray('===> Add Boundary Boxes:'), boundaryBoxes)
 
   console.log(chalk.gray('===>'), chalk.green('Generating PDF (Ghostscript)'))
 
@@ -80,14 +83,22 @@ async function main() {
     path.resolve(__dirname, '../assets/PDFX_def.ps.mustache'),
     path.resolve(__dirname, '../assets/JapanColor2001Coated.icc'),
     grayScale,
-    shouldEnforceOutline,
-    trimBoxes
+    enforceOutline || shouldEnforceOutline,
+    boundaryBoxes
   )
 
   console.log(chalk.gray('===>'), chalk.green('Listing fonts in', output))
   await inspectPDF(resolvedOutput)
 }
 
-main().catch((err) => {
+const argv = yargs
+  .option('input', { required: true })
+  .option('output', { default: './output.pdf' })
+  .option('grayScale', { boolean: true, default: false })
+  .option('enforceOutline', { boolean: true })
+  .option('boundaryBoxes', { boolean: true, default: false })
+  .help().argv
+
+main(argv).catch((err) => {
   console.log(err.message)
 })
