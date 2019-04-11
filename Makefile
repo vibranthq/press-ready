@@ -1,5 +1,5 @@
 build:
-	docker build -t vibranthq/press-ready app
+	docker build -t vibranthq/press-ready cli
 
 publish: build
 	docker push vibranthq/press-ready

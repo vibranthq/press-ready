@@ -3,7 +3,7 @@
   "description": "Make your PDFs compliant with PDF/X-1a.",
   "version": "0.0.0",
   "author": "Yasuaki Uechi <y@uechi.io> (https://uechi.io/)",
-  "main": "cli/cli.js",
+  "main": "src/cli.js",
   "license": "MIT",
   "private": true,
   "dependencies": {

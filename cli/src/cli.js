@@ -56,7 +56,10 @@ async function main(argv) {
   const resolvedInput = path.resolve(input)
   const resolvedOutput = path.resolve(output)
 
-  console.log(chalk.gray('===>'), chalk.green('Listing fonts in', input))
+  console.log(
+    chalk.gray('===>'),
+    chalk.green('Listing embedded fonts in', input)
+  )
   const { shouldEnforceOutline } = await inspectPDF(resolvedInput)
 
   console.log(chalk.gray('===> Input:'), input)
@@ -87,7 +90,10 @@ async function main(argv) {
     boundaryBoxes
   )
 
-  console.log(chalk.gray('===>'), chalk.green('Listing fonts in', output))
+  console.log(
+    chalk.gray('===>'),
+    chalk.green('Listing embedded fonts in', output)
+  )
   await inspectPDF(resolvedOutput)
 }
 

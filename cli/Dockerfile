@@ -14,12 +14,12 @@ RUN npm install -g yarn
 RUN apt-get update && apt-get install -y python3-pip && pip3 install awscli
 
 WORKDIR /app
-COPY assets/* ./assets/
+COPY assets/* /app/assets/
 COPY package.json /app/
 RUN yarn install --only=production
 
 WORKDIR /workdir
-ENTRYPOINT [ "press-ready" ]
+ENTRYPOINT [ "/app/src/cli.js" ]
 
 # wkhtmltopdf 0.12.5
 # RUN apt-get update && apt-get install -y gdebi
