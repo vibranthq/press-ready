@@ -1,5 +1,6 @@
 <h1 align="center">
   🚀 press-ready
+  <br/>
   <img alt="screencast" src="https://github.com/vibranthq/press-ready/blob/master/.readme/screencast.gif?raw=true">
 </h1>
 
