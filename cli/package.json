@@ -4,12 +4,16 @@
   "version": "0.0.0",
   "author": "Yasuaki Uechi <y@uechi.io> (https://uechi.io/)",
   "main": "src/cli.js",
-  "license": "MIT",
-  "private": true,
   "dependencies": {
     "chalk": "^2.4.2",
+    "cli-table": "^0.3.1",
     "execa": "^1.0.0",
     "mustache": "^3.0.1",
     "yargs": "^13.2.2"
+  },
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "debug": "^4.1.1"
   }
 }

@@ -1,6 +1,7 @@
 const fs = require('fs')
 const execa = require('execa')
 const Mustache = require('mustache')
+const debug = require('debug')('press-ready')
 
 async function ghostScript(
   inputPath = './input.pdf',
@@ -8,7 +9,7 @@ async function ghostScript(
   pdfxDefTemplatePath = './assets/PDFX_def.ps.mustache',
   iccProfilePath = './assets/JapanColor2001Coated.icc',
   grayScale = false,
-  enforceOutline = true,
+  enforceOutline = false,
   boundaryBoxes = false
 ) {
   const pdfxDefPath = '/tmp/def.ps'
@@ -18,11 +19,15 @@ async function ghostScript(
     '-dBATCH',
     '-dNOPAUSE',
     '-dNOOUTERSAVE',
-    '-dPDFSTOPONERROR',
     '-sDEVICE=pdfwrite',
+    '-dPDFSTOPONERROR',
     '-dShowAnnots=false',
     '-dPDFSETTINGS=/prepress',
     '-dPrinted',
+    '-r600',
+    '-dGrayImageResolution=600',
+    '-dMonoImageResolution=600',
+    '-dColorImageResolution=600',
     `-sOutputFile=${outputPath}`,
   ]
   if (boundaryBoxes) {
@@ -42,6 +47,7 @@ async function ghostScript(
       '-sProcessColorModel=DeviceCMYK',
       '-sColorConversionStrategy=CMYK',
       '-sColorConversionStrategyForImages=CMYK',
+      '-dOverrideICC',
       `-sOutputICCProfile=${iccProfilePath}`
     )
   }
@@ -57,11 +63,20 @@ async function ghostScript(
   // generate pdf with ghostscript
   const args = [...gsOptions, pdfxDefPath, inputPath]
   const command = [gsCommand, args]
-  const { stdout, stderr } = await execa(...command)
-  return {
-    command,
-    rawOutput: stdout,
-    rawError: stderr,
+  debug(command)
+  try {
+    const { stdout, stderr } = await execa(...command)
+    return {
+      command,
+      rawOutput: stdout,
+      rawError: stderr,
+    }
+  } catch (err) {
+    return {
+      command,
+      rawOutput: err.stdout,
+      rawError: err.stderr,
+    }
   }
 }
 

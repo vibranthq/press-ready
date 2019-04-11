@@ -1,7 +1,0 @@
-version: '2.1'
-services:
-  press-ready:
-    image: vibranthq/press-ready
-    build: .
-    volumes:
-      - $PWD:/workdir
