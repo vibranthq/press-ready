@@ -51,15 +51,6 @@ async function inspectPDF(filePath) {
         font.emb === 'yes' ? chalk.green('yes') : chalk.red('no'),
         font.sub === 'yes' ? chalk.green('yes') : chalk.red('no'),
       ])
-      // rawLog(
-      //   chalk.gray(
-      //     `${font.name}\t (${chalk.yellow(font.type)})\t embedded: ${
-      //       font.emb === 'yes' ? chalk.green('yes') : chalk.red('no')
-      //     } subset: ${
-      //       font.sub === 'yes' ? chalk.green('yes') : chalk.red('no')
-      //     }`
-      //   )
-      // )
     }
     rawLog(table.toString())
   } else {
