@@ -20,5 +20,14 @@ test-chrome: build
 		--output ./output.pdf \
 		--no-enforce-outline
 
+test-gray: build
+	docker run --rm -it \
+		-v ${CURDIR}:/workdir \
+		-e DEBUG=* \
+		vibranthq/press-ready \
+		--input ./cli/test/fixture/chrome.pdf \
+		--output ./output.pdf \
+		--gray-scale
+
 run: build
 	docker run --rm -it -v ${CURDIR}:/workdir --entrypoint bash vibranthq/press-ready
