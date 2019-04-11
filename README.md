@@ -1,4 +1,7 @@
-# press-ready
+<h1 align="center">
+  🚀 press-ready
+  <img alt="screencast" src="https://github.com/vibranthq/press-ready/blob/master/.readme/screencast.gif?raw=true">
+</h1>
 
 > Make your PDF files press-ready PDF/X-1a.
 
