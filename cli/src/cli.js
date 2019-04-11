@@ -63,7 +63,8 @@ async function inspectPDF(filePath) {
   // Check if all fonts are a subset of font
   const isSubset = fonts.every((font) => font.sub === 'yes')
 
-  if (!isEmbedded || !isSubset) {
+  const shouldEnforceOutline = !isEmbedded || !isSubset
+  if (shouldEnforceOutline) {
     log(chalk.red('Some fonts need to be outlined'))
   } else {
     log(chalk.green('Every font is properly embedded or no fonts embedded'))
@@ -72,36 +73,37 @@ async function inspectPDF(filePath) {
   return {
     isEmbedded,
     isSubset,
-    shouldEnforceOutline: !isEmbedded || !isSubset,
+    shouldEnforceOutline,
   }
 }
 
-async function build(argv) {
-  const { input, output, grayScale, enforceOutline, boundaryBoxes } = argv
-  if (!input || !output) {
+async function build(args) {
+  if (!args.input || !args.output) {
     log(chalk.red('No input given'))
     process.exit()
   }
 
-  const resolvedInput = path.resolve(input)
-  const resolvedOutput = path.resolve(output)
+  const resolvedInput = path.resolve(args.input)
+  const resolvedOutput = path.resolve(args.output)
 
-  log(`Listing fonts in '${input}'`)
+  log(`Listing fonts in '${args.input}'`)
   const { shouldEnforceOutline } = await inspectPDF(resolvedInput)
   const isEnforceOutline =
-    enforceOutline !== undefined ? enforceOutline : shouldEnforceOutline
+    args.enforceOutline !== undefined
+      ? args.enforceOutline
+      : shouldEnforceOutline
 
   log('Generating PDF (using Ghostscript)')
   const table = new Table(tableArgs)
   table.push(
     {
-      Input: chalk.white(input),
+      Input: chalk.white(args.input),
     },
     {
-      Output: chalk.white(output),
+      Output: chalk.white(args.output),
     },
     {
-      'Color Mode': grayScale
+      'Color Mode': args.grayScale
         ? chalk.white('Gray')
         : `${chalk.cyan('C')}${chalk.red('M')}${chalk.yellow('Y')}${chalk.white(
             'K'
@@ -113,7 +115,9 @@ async function build(argv) {
         : chalk.red('no'),
     },
     {
-      'Boundary boxes': boundaryBoxes ? chalk.green('yes') : chalk.red('no'),
+      'Boundary boxes': args.boundaryBoxes
+        ? chalk.green('yes')
+        : chalk.red('no'),
     }
   )
   rawLog(table.toString())
@@ -123,9 +127,9 @@ async function build(argv) {
     resolvedOutput,
     path.resolve(__dirname, '../assets/PDFX_def.ps.mustache'),
     path.resolve(__dirname, '../assets/JapanColor2001Coated.icc'),
-    grayScale,
+    args.grayScale,
     isEnforceOutline,
-    boundaryBoxes
+    args.boundaryBoxes
   )
 
   if (gsResult.rawError) {
@@ -135,7 +139,7 @@ async function build(argv) {
     log('Done without error')
   }
 
-  log(`Listing fonts in '${output}'`)
+  log(`Listing fonts in '${args.output}'`)
   await inspectPDF(resolvedOutput)
 }
 
