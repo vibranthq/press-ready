@@ -146,9 +146,14 @@ async function build(args) {
 async function lint(argv) {}
 
 const argv = yargs
-  .option('input', { required: true, description: 'Input file path' })
+  .option('input', {
+    required: true,
+    alias: 'i',
+    description: 'Input file path',
+  })
   .option('output', {
     default: './output.pdf',
+    alias: 'o',
     description: 'Output file path',
   })
   .option('gray-scale', {
