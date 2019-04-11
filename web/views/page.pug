@@ -1,0 +1,10 @@
+html
+  head
+    title= title
+  body
+    h1 Page
+    div= status
+    if status === 'processed'
+      a(href=downloadURL) download
+    else
+      div processing now... status = #{status}

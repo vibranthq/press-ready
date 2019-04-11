@@ -1,0 +1,17 @@
+version: '2.1'
+
+services:
+  app:
+    image: press-ready
+    build: .
+    environment:
+      NODE_ENV: development
+    env_file: .env
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - 3000:3000
+    links:
+      - db
+  db:
+    image: mongo

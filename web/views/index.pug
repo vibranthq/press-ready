@@ -1,0 +1,8 @@
+html
+  head
+    title= title
+  body
+    h1 Upload PDF
+    form(action="/pages" method="post" enctype="multipart/form-data")
+      input(type="file" name="pdffile")
+      input(type="submit" value="Convert")
