@@ -1,7 +1,7 @@
 FROM ubuntu:18.04
 LABEL Name=press-ready Version=0.1.0
 
-# RUN apt-get update && apt-get install -y build-essential curl
+RUN apt-get update && apt-get install -y curl
 
 # Xpdf, Ghostscript, ImageMagick
 RUN apt-get update && apt-get install -y xpdf ghostscript imagemagick
@@ -15,8 +15,9 @@ RUN apt-get update && apt-get install -y python3-pip && pip3 install awscli
 
 WORKDIR /app
 COPY assets/* /app/assets/
-COPY package.json /app/
+COPY package.json yarn.lock /app/
 RUN yarn install --only=production
+COPY src/* /app/src/
 
 WORKDIR /workdir
 ENTRYPOINT [ "/app/src/cli.js" ]
