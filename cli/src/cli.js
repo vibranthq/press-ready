@@ -98,11 +98,25 @@ async function main(argv) {
 }
 
 const argv = yargs
-  .option('input', { required: true })
-  .option('output', { default: './output.pdf' })
-  .option('grayScale', { boolean: true, default: false })
-  .option('enforceOutline', { boolean: true })
-  .option('boundaryBoxes', { boolean: true, default: false })
+  .option('input', { required: true, description: 'Input file path' })
+  .option('output', {
+    default: './output.pdf',
+    description: 'Output file path',
+  })
+  .option('grayScale', {
+    boolean: true,
+    default: false,
+    description: 'Use gray scale color space instead of CMYK',
+  })
+  .option('enforceOutline', {
+    boolean: true,
+    description: 'Convert embedded fonts to outlined fonts',
+  })
+  .option('boundaryBoxes', {
+    boolean: true,
+    default: false,
+    description: 'Add boundary boxes on every page',
+  })
   .help().argv
 
 main(argv).catch((err) => {

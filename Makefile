@@ -9,3 +9,6 @@ test: build
 		-v ${CURDIR}:/workdir \
 		vibranthq/press-ready \
 		--input ./cli/test/fixture/input.pdf --output ./output.pdf
+
+run:
+	docker run --rm -it --entrypoint bash vibranthq/press-ready

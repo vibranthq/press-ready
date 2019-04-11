@@ -1,17 +1,17 @@
 FROM ubuntu:18.04
 LABEL Name=press-ready Version=0.1.0
 
-RUN apt-get update && apt-get install -y curl
+RUN apt-get update -qq && apt-get install -yqq curl
 
 # Xpdf, Ghostscript, ImageMagick
-RUN apt-get update && apt-get install -y xpdf ghostscript imagemagick
+RUN apt-get update -qq && apt-get install -yqq xpdf ghostscript imagemagick
 
 # NodeJS
-RUN apt-get update && apt-get install -y nodejs npm && npm install n -g && n 11.13.0
+RUN apt-get update -qq && apt-get install -yqq nodejs npm && npm install n -g && n 11.13.0
 RUN npm install -g yarn
 
 # AWS
-RUN apt-get update && apt-get install -y python3-pip && pip3 install awscli
+RUN apt-get update -qq && apt-get install -yqq python3-pip && pip3 install awscli
 
 WORKDIR /app
 COPY assets/* /app/assets/
