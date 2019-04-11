@@ -6,6 +6,8 @@
 
 > Make your PDF compliant with press-ready PDF/X-1a.
 
+[日本語ドキュメント](README.ja.md)
+
 [![Build Status](https://travis-ci.com/vibranthq/press-ready.svg?branch=master)](https://travis-ci.com/vibranthq/press-ready)
 
 ## Pre-requisite
