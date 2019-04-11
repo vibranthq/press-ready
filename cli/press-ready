@@ -12,8 +12,6 @@ if [[ -z $INPUT_PATH ]] || [[ -z $OUTPUT_PATH ]]; then
   echo "==> specify both input and output. aborting"
   exit 1
 fi
-echo "==> IN:  ${INPUT_PATH}"
-echo "==> OUT: ${OUTPUT_PATH}"
 
 # check AWS S3 resource uri
 if [[ $INPUT_PATH == s3://* ]]; then
@@ -25,6 +23,9 @@ if [[ $INPUT_PATH == s3://* ]]; then
 
   alias cp="aws s3 cp"
 fi
+
+echo "==> IN:  ${INPUT_PATH}"
+echo "==> OUT: ${OUTPUT_PATH}"
 
 # copy source file to working directory
 echo "==> Downloading artifact from '${INPUT_PATH}'"
