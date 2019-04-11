@@ -1,9 +1,13 @@
 {
   "name": "@vib/press-ready",
   "description": "Make your PDFs compliant with PDF/X-1a.",
-  "version": "0.0.0",
+  "version": "2.0.0",
   "author": "Yasuaki Uechi <y@uechi.io> (https://uechi.io/)",
   "main": "src/cli.js",
+  "scripts": {
+    "start": "node . --help",
+    "test": "node . build -i test/fixture/chrome.pdf"
+  },
   "dependencies": {
     "chalk": "^2.4.2",
     "cli-table": "^0.3.1",
@@ -11,9 +15,9 @@
     "mustache": "^3.1.0",
     "yargs": "^14.0.0"
   },
-  "license": "MIT",
-  "private": true,
   "devDependencies": {
     "debug": "^4.1.1"
-  }
+  },
+  "license": "MIT",
+  "private": true
 }

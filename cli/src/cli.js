@@ -25,7 +25,7 @@ const tableArgs = {
   style: { 'padding-left': 0, head: ['white'] },
 }
 
-const { pdfFonts } = require('./pdfFonts')
+const { pdfFonts, pdfInfo } = require('./xpdf')
 const { ghostScript } = require('./ghostScript')
 
 function log(...obj) {
@@ -79,8 +79,7 @@ async function inspectPDF(filePath) {
 
 async function build(args) {
   if (!args.input || !args.output) {
-    log(chalk.red('No input given'))
-    process.exit()
+    throw new Error('No input given')
   }
 
   const resolvedInput = path.resolve(args.input)
@@ -143,36 +142,64 @@ async function build(args) {
   await inspectPDF(resolvedOutput)
 }
 
-async function lint(argv) {}
+async function lint(args) {
+  const info = await pdfInfo(args.input)
+  log(`Linting metadata for '${args.input}'`)
+  log(chalk.gray('Title'), info.Title)
+  log(chalk.gray('Page No.'), info.Pages)
+  log(chalk.gray('PDF version'), info['PDF version'])
+  log(chalk.gray('TrimBox'), Object.values(info.TrimBox))
+  log(chalk.gray('BleedBox'), Object.values(info.BleedBox))
+  log('Listing fonts')
+  await inspectPDF(args.input)
+}
 
-const argv = yargs
-  .option('input', {
-    required: true,
-    alias: 'i',
-    description: 'Input file path',
-  })
-  .option('output', {
-    default: './output.pdf',
-    alias: 'o',
-    description: 'Output file path',
-  })
-  .option('gray-scale', {
-    boolean: true,
-    default: false,
-    description: 'Use gray scale color space instead of CMYK',
-  })
-  .option('enforce-outline', {
-    boolean: true,
-    description: 'Convert embedded fonts to outlined fonts',
-  })
-  .option('boundary-boxes', {
-    boolean: true,
-    default: false,
-    description: 'Add boundary boxes on every page',
+yargs
+  .scriptName('press-ready')
+  .command(
+    ['build', '$0'],
+    'build PDF',
+    (yargs) =>
+      yargs
+        .option('input', {
+          demandOption: true,
+          alias: 'i',
+          description: 'Input file path (relative)',
+        })
+        .option('output', {
+          default: './output.pdf',
+          alias: 'o',
+          description: 'Output file path (relative)',
+        })
+        .option('gray-scale', {
+          boolean: true,
+          default: false,
+          description: 'Use gray scale color space instead of CMYK',
+        })
+        .option('enforce-outline', {
+          boolean: true,
+          description: 'Convert embedded fonts to outlined fonts',
+        })
+        .option('boundary-boxes', {
+          boolean: true,
+          default: false,
+          description: 'Add boundary boxes on every page',
+        }),
+    build
+  )
+  .command(
+    ['lint'],
+    'lint PDF',
+    (yargs) =>
+      yargs.option('input', {
+        required: true,
+        alias: 'i',
+        description: 'Input file path (relative)',
+      }),
+    lint
+  )
+  .fail((msg, err, yargs) => {
+    log(chalk.red(msg || err))
+    process.exit()
   })
   .help().argv
-
-build(argv).catch((err) => {
-  log(chalk.red('Error'))
-  rawLog(chalk.red(err.message))
-})
