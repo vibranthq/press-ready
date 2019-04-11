@@ -16,7 +16,7 @@
 
 Pull `vibranthq/press-ready` image from [Docker Hub](https://hub.docker.com/r/vibranthq/press-ready/).
 
-Then run `docker run -it -v $PWD:/workdir vibranthq/press-ready --input <input filepath> --output <output filepath>`.
+Then run `docker run -it -v $PWD:/workdir vibranthq/press-ready --input <input.pdf> --output <output.pdf>`.
 
 ```bash
 docker pull vibranthq/press-ready
@@ -28,7 +28,7 @@ docker run --rm -it \
   --output ./output.pdf
 ```
 
-Run `docker run --rm vibranthq/press-ready --help` to show help.
+Run `docker run --rm vibranthq/press-ready --help` for the help.
 
 ```bash
 ➜ docker run --rm vibranthq/press-ready --help
@@ -91,15 +91,15 @@ Currently, there is only support for **Japan 2001 Coated**. If you have any sugg
 
 ## Tips
 
-### Alias
+### `press-ready` command
 
-Define an alias for press-ready as a shorthand command.
+You might want to assign an alias for `press-ready` as a shorthand command.
 
 ```bash
 alias press-ready="docker run -it -v \$PWD:/workdir vibranthq/press-ready"
 ```
 
-then you can run press-ready just like a normal command:
+Then you can type `press-ready` just like a normal command:
 
 ```bash
 press-ready --help
@@ -119,7 +119,7 @@ For fetching and uploading AWS S3 resources, you need to set env var `AWS_ACCESS
 docker run --rm -it \
   -e AWS_ACCESS_KEY_ID=<aws_key_id> \
   -e AWS_SECRET_ACCESS_KEY=<aws_secret> \
-  vibranthq/press-ready s3://bucket/input.pdf s3://bucket/output.pdf
+  vibranthq/pdfx s3://bucket/input.pdf s3://bucket/output.pdf
 ```
 
 ## Contribution
@@ -131,7 +131,6 @@ PRs are welcome. Make sure to do `make test` before filing pull requests.
 ```bash
 make build
 make test
-make test-chrome
 ```
 
 ### Contributors
