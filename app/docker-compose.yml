@@ -1,7 +1,7 @@
 version: '2.1'
 services:
-  pdfx:
-    image: pdfx
+  press-ready:
+    image: vibranthq/press-ready
     build: .
     volumes:
       - $PWD:/workdir

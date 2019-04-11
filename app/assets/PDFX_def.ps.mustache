@@ -16,11 +16,11 @@ systemdict /ProcessColorModel known {
 
 % Define entries to the document Info dictionary :
 
-/ICCProfile (/usr/src/app/assets/JapanColor2001Coated.icc) def  % Customize or remove.
+/ICCProfile ({{{iccProfilePath}}}) def  % Customize or remove.
 
 [ /GTS_PDFXVersion (PDF/X-1:2001) % Must be so (the standard requires).
   /GTS_PDFXConformance (PDF/X-1a:2001) % Must be so (the standard requires).
-  /Title (The Vibrant Book)                  % Customize.
+  /Title ({{{title}}})                  % Customize.
   /Trapped /False                 % Must be so (Ghostscript doesn't provide other).
   /DOCINFO pdfmark
 
