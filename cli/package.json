@@ -1,11 +1,12 @@
 {
   "name": "@vib/press-ready",
-  "description": "Make your PDFs compliant with PDF/X-1a.",
+  "description": "Make your PDFs compliant with press-ready PDF/X-1a.",
   "version": "2.0.0",
   "author": "Yasuaki Uechi <y@uechi.io> (https://uechi.io/)",
   "main": "src/cli.js",
   "scripts": {
-    "start": "node . --help",
+    "clean": "shx rm *.pdf",
+    "dev": "node . --help",
     "test": "node . build -i test/fixture/chrome.pdf"
   },
   "dependencies": {
@@ -16,8 +17,30 @@
     "yargs": "^14.0.0"
   },
   "devDependencies": {
-    "debug": "^4.1.1"
+    "debug": "^4.1.1",
+    "eslint": "^5.16.0",
+    "husky": "^2.0.0",
+    "lint-staged": "^8.1.5",
+    "prettier": "^1.17.0",
+    "pretty-quick": "^1.10.0",
+    "shx": "^0.3.2"
+  },
+  "bin": "src/cli.js",
+  "files": [
+    "src/*.js"
+  ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged && pretty-quick --staged",
+      "pre-push": "yarn test"
+    }
   },
   "license": "MIT",
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
   "private": true
 }

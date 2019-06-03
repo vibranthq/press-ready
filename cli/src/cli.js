@@ -29,10 +29,12 @@ const { pdfFonts, pdfInfo } = require('./xpdf')
 const { ghostScript } = require('./ghostScript')
 
 function log(...obj) {
+  // eslint-disable-next-line no-console
   console.log(chalk.gray('==>'), chalk.blue(...obj))
 }
 
 function rawLog(...obj) {
+  // eslint-disable-next-line no-console
   console.log(...obj)
 }
 
@@ -198,7 +200,7 @@ yargs
       }),
     lint
   )
-  .fail((msg, err, yargs) => {
+  .fail((msg, err) => {
     log(chalk.red(msg || err))
     process.exit()
   })

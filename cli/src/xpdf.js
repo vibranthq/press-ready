@@ -46,7 +46,6 @@ async function pdfFonts(filePath) {
     .slice(2)
     .map((line) =>
       Object.assign(
-        {},
         ...columns.map((column) => ({ [column]: scraper(line, column) }))
       )
     )
@@ -74,7 +73,6 @@ async function pdfInfo(filePath) {
   const labels = ['bottomLeftX', 'bottomLeftY', 'topRightX', 'topRightY']
   for (const column of boxColumns) {
     result[column] = Object.assign(
-      {},
       ...result[column]
         .split(/\s+/)
         .map((val, i) => ({ [labels[i]]: parseFloat(val) }))

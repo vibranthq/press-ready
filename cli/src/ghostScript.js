@@ -55,7 +55,7 @@ async function ghostScript(
   }
 
   // generate PDFX_def.ps
-  pdfxDefTemplate = fs.readFileSync(pdfxDefTemplatePath, 'utf-8')
+  const pdfxDefTemplate = fs.readFileSync(pdfxDefTemplatePath, 'utf-8')
   const pdfxDef = Mustache.render(pdfxDefTemplate, {
     title: 'Auto-generated PDF (press-ready)',
     iccProfilePath,
