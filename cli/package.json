@@ -9,7 +9,7 @@
     "cli-table": "^0.3.1",
     "execa": "^2.0.4",
     "mustache": "^3.0.1",
-    "yargs": "^13.3.0"
+    "yargs": "^14.0.0"
   },
   "license": "MIT",
   "private": true,
