@@ -134,6 +134,12 @@ press-ready を組み込んでいるプロジェクトを教えてください�
 
 - [Re:VIEW の公式 FAQ](https://review-knowledge-ja.readthedocs.io/ja/latest/faq/faq-tex.html#1884868db054ed23b6b02a3d2a4b3c9b)で、PDF を印刷可能なフォーマットに変換する方法の一つとして press-ready が紹介されています。
 
+## Advanced Usage
+
+### Heroku
+
+Heroku で `press-ready` を動かす際は、必ず [heroku-buildpack-xpdf](https://github.com/matt-note/heroku-xpdf-buildpack) を導入して`pdffonts`を使用可能な状態にしてください。
+
 ## 貢献
 
 プルリクエスト大歓迎です！プルリクエストを作成する前に `make test` でテストを通過するかを確認してください。
