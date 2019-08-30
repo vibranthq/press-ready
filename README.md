@@ -124,6 +124,12 @@ docker run --rm -it \
   vibranthq/pdfx s3://bucket/input.pdf s3://bucket/output.pdf
 ```
 
+## Advanced Usage
+
+### Heroku
+
+To run `press-ready` on Heroku, make sure you add [heroku-buildpack-xpdf](https://github.com/matt-note/heroku-xpdf-buildpack).
+
 ## Contribution
 
 PRs are welcome. Make sure to do `make test` before filing pull requests.
