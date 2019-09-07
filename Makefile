@@ -4,6 +4,13 @@ build:
 publish: build
 	docker push vibranthq/press-ready
 
+lint: build
+	docker run --rm -it \
+		-v ${CURDIR}:/workdir \
+		-e DEBUG=* \
+		vibranthq/press-ready \
+		lint --input ./cli/test/fixture/review.pdf
+
 test: build
 	docker run --rm -it \
 		-v ${CURDIR}:/workdir \
