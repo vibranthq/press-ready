@@ -3,13 +3,8 @@ const execa = require('execa')
 class ParserError extends Error {}
 
 async function pdfFonts(filePath) {
-  let result
-  try {
-    const cmd = await execa('pdffonts', [filePath])
-    result = cmd.stdout.split('\n')
-  } catch (err) {
-    throw err
-  }
+  const cmd = await execa('pdffonts', [filePath])
+  const result = cmd.stdout.split('\n')
 
   if (!/^name/.test(result[0])) {
     throw new ParserError('Parse Error')
@@ -53,13 +48,8 @@ async function pdfFonts(filePath) {
 }
 
 async function pdfInfo(filePath) {
-  let result
-  try {
-    const cmd = await execa('pdfinfo', ['-box', filePath])
-    result = cmd.stdout.split('\n')
-  } catch (err) {
-    throw err
-  }
+  const cmd = await execa('pdfinfo', ['-box', filePath])
+  let result = cmd.stdout.split('\n')
 
   result = Object.assign(
     {},
