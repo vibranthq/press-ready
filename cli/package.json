@@ -7,7 +7,7 @@
   "dependencies": {
     "chalk": "^2.4.2",
     "cli-table": "^0.3.1",
-    "execa": "^2.0.4",
+    "execa": "^2.0.5",
     "mustache": "^3.1.0",
     "yargs": "^14.0.0"
   },
