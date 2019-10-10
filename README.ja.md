@@ -1,10 +1,12 @@
 <h1 align="center">
   🚀 press-ready
   <br/>
-  <img alt="screencast" src="https://github.com/vibranthq/press-ready/blob/master/.readme/screencast.gif?raw=true">
+  <img alt="screencast" src="https://github.com/vibranthq/press-ready/blob/master/.github/screencast.gif?raw=true">
 </h1>
 
-> あなたの PDF をプレス可能な PDF/X-1a に変換しよう
+> あなたの PDF をプレス可能な PDF/X-1a に変換しよう。
+
+[🇬🇧English](README.md)
 
 [![Build Status](https://travis-ci.com/vibranthq/press-ready.svg?branch=master)](https://travis-ci.com/vibranthq/press-ready)
 
@@ -110,6 +112,33 @@ alias press-ready="docker run -it -v \$PWD:/workdir vibranthq/press-ready"
 ```bash
 press-ready --help
 press-ready --input <input.pdf> --output <output.pdf>
+```
+
+### PDF の検査
+
+```bash
+docker run --rm -it \
+  -v ${CURDIR}:/workdir \
+  vibranthq/press-ready lint --input ./input.pdf
+```
+
+`press-ready lint` コマンドによって PDF のメタデータのチェックをすることが出来ます。
+
+```
+==> Linting metadata for './cli/test/fixture/review.pdf'
+==> Title Re:VIEWテンプレート
+==> Page No. 8
+==> PDF version 1.5
+==> TrimBox 48.19,66.61,467.72,661.89
+==> BleedBox 39.68,58.11,476.22,670.39
+==> Listing fonts
+name                                      type         embedded  subset
+ORFHCM+NimbusSanL-Regu                    Type 1C      yes       yes
+JCEWND+NimbusSanL-Bold                    Type 1C      yes       yes
+ASNLWJ+NotoSansCJKjp-Bold-Identity-H      CID Type 0C  yes       yes
+HPDDST+LMRoman9-Regular                   Type 1C      yes       yes
+RJMBNU+NotoSerifCJKjp-Regular-Identity-H  CID Type 0C  yes       yes
+==> Every font is properly embedded or no fonts embedded
 ```
 
 ### AWS S3 のリソースを使用する

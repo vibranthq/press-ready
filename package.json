@@ -1,0 +1,53 @@
+{
+  "name": "press-ready",
+  "description": "Make your PDFs compliant with press-ready PDF/X-1a.",
+  "version": "2.0.0",
+  "scripts": {
+    "clean": "shx rm *.pdf",
+    "dev": "node . --help",
+    "test": "node . build -i test/fixture/chrome.pdf"
+  },
+  "dependencies": {
+    "chalk": "^2.4.2",
+    "cli-table": "^0.3.1",
+    "execa": "^2.0.5",
+    "mustache": "^3.1.0",
+    "yargs": "^14.0.0"
+  },
+  "devDependencies": {
+    "debug": "^4.1.1",
+    "eslint": "^6.2.2",
+    "husky": "^3.0.4",
+    "lint-staged": "^9.2.5",
+    "prettier": "^1.18.2",
+    "pretty-quick": "^1.11.1",
+    "shx": "^0.3.2"
+  },
+  "author": "Yasuaki Uechi <y@uechi.io> (https://uechi.io/)",
+  "license": "MIT",
+  "main": "src/cli.js",
+  "bin": "src/cli.js",
+  "bugs": "https://github.com/vibranthq/press-ready/issues",
+  "files": [
+    "src",
+    "assets"
+  ],
+  "homepage": "https://github.com/vibranthq/press-ready",
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged && pretty-quick --staged",
+      "pre-push": "yarn test"
+    }
+  },
+  "keywords": [
+    "press-ready",
+    "printing"
+  ],
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "repository": "https://github.com/vibranthq/press-ready.git"
+}

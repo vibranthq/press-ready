@@ -4,6 +4,11 @@ const yargs = require('yargs')
 const path = require('path')
 const chalk = require('chalk')
 const Table = require('cli-table')
+
+const { pdfFonts, pdfInfo } = require('./xpdf')
+const { ghostScript } = require('./ghostScript')
+
+const ASSETS_DIR = path.resolve(__dirname, '..', 'assets')
 const tableArgs = {
   chars: {
     top: '',
@@ -25,14 +30,13 @@ const tableArgs = {
   style: { 'padding-left': 0, head: ['white'] },
 }
 
-const { pdfFonts } = require('./pdfFonts')
-const { ghostScript } = require('./ghostScript')
-
 function log(...obj) {
+  // eslint-disable-next-line no-console
   console.log(chalk.gray('==>'), chalk.blue(...obj))
 }
 
 function rawLog(...obj) {
+  // eslint-disable-next-line no-console
   console.log(...obj)
 }
 
@@ -67,7 +71,7 @@ async function inspectPDF(filePath) {
   if (shouldEnforceOutline) {
     log(chalk.red('Some fonts need to be outlined'))
   } else {
-    log(chalk.green('Every font is properly embedded or no fonts embedded'))
+    log(chalk.green('Every font is properly embedded'))
   }
 
   return {
@@ -79,8 +83,7 @@ async function inspectPDF(filePath) {
 
 async function build(args) {
   if (!args.input || !args.output) {
-    log(chalk.red('No input given'))
-    process.exit()
+    throw new Error('No input given')
   }
 
   const resolvedInput = path.resolve(args.input)
@@ -125,8 +128,8 @@ async function build(args) {
   const gsResult = await ghostScript(
     resolvedInput,
     resolvedOutput,
-    path.resolve(__dirname, '../assets/PDFX_def.ps.mustache'),
-    path.resolve(__dirname, '../assets/JapanColor2001Coated.icc'),
+    path.join(ASSETS_DIR, 'PDFX_def.ps.mustache'),
+    path.join(ASSETS_DIR, 'JapanColor2001Coated.icc'),
     args.grayScale,
     isEnforceOutline,
     args.boundaryBoxes
@@ -143,36 +146,64 @@ async function build(args) {
   await inspectPDF(resolvedOutput)
 }
 
-async function lint(argv) {}
+async function lint(args) {
+  const info = await pdfInfo(args.input)
+  log(`Linting metadata for '${args.input}'`)
+  log(chalk.gray('Title'), info.Title)
+  log(chalk.gray('Page No.'), info.Pages)
+  log(chalk.gray('PDF version'), info['PDF version'])
+  log(chalk.gray('TrimBox'), Object.values(info.TrimBox))
+  log(chalk.gray('BleedBox'), Object.values(info.BleedBox))
+  log('Listing fonts')
+  await inspectPDF(args.input)
+}
 
-const argv = yargs
-  .option('input', {
-    required: true,
-    alias: 'i',
-    description: 'Input file path',
-  })
-  .option('output', {
-    default: './output.pdf',
-    alias: 'o',
-    description: 'Output file path',
-  })
-  .option('gray-scale', {
-    boolean: true,
-    default: false,
-    description: 'Use gray scale color space instead of CMYK',
-  })
-  .option('enforce-outline', {
-    boolean: true,
-    description: 'Convert embedded fonts to outlined fonts',
-  })
-  .option('boundary-boxes', {
-    boolean: true,
-    default: false,
-    description: 'Add boundary boxes on every page',
+yargs
+  .scriptName('press-ready')
+  .command(
+    ['build', '$0'],
+    'build PDF',
+    (yargs) =>
+      yargs
+        .option('input', {
+          demandOption: true,
+          alias: 'i',
+          description: 'Input file path (relative)',
+        })
+        .option('output', {
+          default: './output.pdf',
+          alias: 'o',
+          description: 'Output file path (relative)',
+        })
+        .option('gray-scale', {
+          boolean: true,
+          default: false,
+          description: 'Use gray scale color space instead of CMYK',
+        })
+        .option('enforce-outline', {
+          boolean: true,
+          description: 'Convert embedded fonts to outlined fonts',
+        })
+        .option('boundary-boxes', {
+          boolean: true,
+          default: false,
+          description: 'Add boundary boxes on every page',
+        }),
+    build
+  )
+  .command(
+    ['lint'],
+    'lint PDF',
+    (yargs) =>
+      yargs.option('input', {
+        required: true,
+        alias: 'i',
+        description: 'Input file path (relative)',
+      }),
+    lint
+  )
+  .fail((msg, err) => {
+    log(chalk.red(msg || err))
+    process.exit()
   })
   .help().argv
-
-build(argv).catch((err) => {
-  log(chalk.red('Error'))
-  rawLog(chalk.red(err.message))
-})

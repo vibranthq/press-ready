@@ -1,12 +1,12 @@
 <h1 align="center">
   🚀 press-ready
   <br/>
-  <img alt="screencast" src="https://github.com/vibranthq/press-ready/blob/master/.readme/screencast.gif?raw=true">
+  <img alt="screencast" src="https://github.com/vibranthq/press-ready/blob/master/.github/screencast.gif?raw=true">
 </h1>
 
 > Make your PDF compliant with press-ready PDF/X-1a.
 
-[日本語ドキュメント](README.ja.md)
+[🇯🇵 日本語](README.ja.md)
 
 [![Build Status](https://travis-ci.com/vibranthq/press-ready.svg?branch=master)](https://travis-ci.com/vibranthq/press-ready)
 
@@ -106,6 +106,33 @@ Then you can type `press-ready` just like a normal command:
 ```bash
 press-ready --help
 press-ready --input <input.pdf> --output <output.pdf>
+```
+
+### Lint PDF
+
+```bash
+docker run --rm -it \
+  -v ${CURDIR}:/workdir \
+  vibranthq/press-ready lint --input ./input.pdf
+```
+
+`press-ready lint` command produces lint result on specified PDF.
+
+```
+==> Linting metadata for './cli/test/fixture/review.pdf'
+==> Title Re:VIEWテンプレート
+==> Page No. 8
+==> PDF version 1.5
+==> TrimBox 48.19,66.61,467.72,661.89
+==> BleedBox 39.68,58.11,476.22,670.39
+==> Listing fonts
+name                                      type         embedded  subset
+ORFHCM+NimbusSanL-Regu                    Type 1C      yes       yes
+JCEWND+NimbusSanL-Bold                    Type 1C      yes       yes
+ASNLWJ+NotoSansCJKjp-Bold-Identity-H      CID Type 0C  yes       yes
+HPDDST+LMRoman9-Regular                   Type 1C      yes       yes
+RJMBNU+NotoSerifCJKjp-Regular-Identity-H  CID Type 0C  yes       yes
+==> Every font is properly embedded or no fonts embedded
 ```
 
 ### Pull resource from AWS S3
