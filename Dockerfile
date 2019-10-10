@@ -1,5 +1,4 @@
 FROM ubuntu:18.04
-LABEL Name=press-ready Version=2.0.0
 
 RUN apt-get update -qq && apt-get install -yqq curl
 
