@@ -27,20 +27,27 @@
   "license": "MIT",
   "main": "src/cli.js",
   "bin": "src/cli.js",
+  "bugs": "https://github.com/vibranthq/press-ready/issues",
   "files": [
-    "src/*.js"
+    "src",
+    "assets"
   ],
+  "homepage": "https://github.com/vibranthq/press-ready",
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged && pretty-quick --staged",
       "pre-push": "yarn test"
     }
   },
+  "keywords": [
+    "press-ready",
+    "printing"
+  ],
   "lint-staged": {
     "*.js": [
       "eslint --fix",
       "git add"
     ]
   },
-  "private": true
+  "repository": "https://github.com/vibranthq/press-ready.git"
 }
