@@ -5,9 +5,13 @@ docker-compose*
 .dockerignore
 .git
 .gitignore
+.github
 .vscode
 .env
 .envrc
 .DS_Store
 .travis.yml
+.prettierrc
+.eslintrc.js
+*.md
 *.pdf

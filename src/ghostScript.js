@@ -1,9 +1,9 @@
 const fs = require('fs')
 const execa = require('execa')
+const { tmpdir } = require('os')
+const { join } = require('path')
 const Mustache = require('mustache')
 const debug = require('debug')('press-ready')
-const { join } = require('path')
-const { tmpdir } = require('os')
 
 async function ghostScript(
   inputPath,

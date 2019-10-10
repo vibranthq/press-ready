@@ -4,6 +4,11 @@ const yargs = require('yargs')
 const path = require('path')
 const chalk = require('chalk')
 const Table = require('cli-table')
+
+const { pdfFonts, pdfInfo } = require('./xpdf')
+const { ghostScript } = require('./ghostScript')
+
+const ASSETS_DIR = path.resolve(__dirname, '..', 'assets')
 const tableArgs = {
   chars: {
     top: '',
@@ -24,9 +29,6 @@ const tableArgs = {
   },
   style: { 'padding-left': 0, head: ['white'] },
 }
-
-const { pdfFonts, pdfInfo } = require('./xpdf')
-const { ghostScript } = require('./ghostScript')
 
 function log(...obj) {
   // eslint-disable-next-line no-console
@@ -69,7 +71,7 @@ async function inspectPDF(filePath) {
   if (shouldEnforceOutline) {
     log(chalk.red('Some fonts need to be outlined'))
   } else {
-    log(chalk.green('Every font is properly embedded or no fonts embedded'))
+    log(chalk.green('Every font is properly embedded'))
   }
 
   return {
@@ -126,8 +128,8 @@ async function build(args) {
   const gsResult = await ghostScript(
     resolvedInput,
     resolvedOutput,
-    path.resolve(__dirname, '../assets/PDFX_def.ps.mustache'),
-    path.resolve(__dirname, '../assets/JapanColor2001Coated.icc'),
+    path.join(ASSETS_DIR, 'PDFX_def.ps.mustache'),
+    path.join(ASSETS_DIR, 'JapanColor2001Coated.icc'),
     args.grayScale,
     isEnforceOutline,
     args.boundaryBoxes
