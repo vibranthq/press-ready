@@ -1,7 +1,7 @@
 <h1 align="center">
   🚀 press-ready
   <br/>
-  <img alt="screencast" src="https://github.com/vibranthq/press-ready/blob/master/.readme/screencast.gif?raw=true">
+  <img alt="screencast" src="https://github.com/vibranthq/press-ready/blob/master/.github/screencast.gif?raw=true">
 </h1>
 
 > Make your PDF compliant with press-ready PDF/X-1a.

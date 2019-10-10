@@ -1,4 +1,7 @@
+.vscode
 *.pdf
+!test/fixture/*.pdf
+*.ps
 
 # Created by https://www.gitignore.io/api/node
 

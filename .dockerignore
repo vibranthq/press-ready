@@ -6,6 +6,8 @@ docker-compose*
 .git
 .gitignore
 .vscode
-*.pdf
 .env
+.envrc
 .DS_Store
+.travis.yml
+*.pdf

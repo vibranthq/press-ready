@@ -1,4 +1,0 @@
-.vscode
-*.pdf
-!test/fixture/*.pdf
-*.ps

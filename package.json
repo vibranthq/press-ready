@@ -1,9 +1,7 @@
 {
-  "name": "@vibranthq/press-ready",
+  "name": "press-ready",
   "description": "Make your PDFs compliant with press-ready PDF/X-1a.",
   "version": "2.0.0",
-  "author": "Yasuaki Uechi <y@uechi.io> (https://uechi.io/)",
-  "main": "src/cli.js",
   "scripts": {
     "clean": "shx rm *.pdf",
     "dev": "node . --help",
@@ -25,6 +23,9 @@
     "pretty-quick": "^1.11.1",
     "shx": "^0.3.2"
   },
+  "author": "Yasuaki Uechi <y@uechi.io> (https://uechi.io/)",
+  "license": "MIT",
+  "main": "src/cli.js",
   "bin": "src/cli.js",
   "files": [
     "src/*.js"
@@ -35,7 +36,6 @@
       "pre-push": "yarn test"
     }
   },
-  "license": "MIT",
   "lint-staged": {
     "*.js": [
       "eslint --fix",
