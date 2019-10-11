@@ -3,11 +3,12 @@
 set -e
 
 # publish npm package
-np
+np --no-yarn
 
-VERSION=$(git tag | sed 's/^v//')
+VERSION=$(git describe --tags | sed 's/^v//')
 echo "Releasing ${VERSION}"
 
 # publish docker image
 docker build -t vibranthq/press-ready:${VERSION} .
-docker publish vibranthq/press-ready:${VERSION}
+docker push vibranthq/press-ready
+docker push vibranthq/press-ready:${VERSION}
