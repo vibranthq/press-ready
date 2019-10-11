@@ -6,34 +6,67 @@
 
 > Make your PDF compliant with press-ready PDF/X-1a.
 
-[🇯🇵 日本語](README.ja.md)
-
 [![Build Status](https://travis-ci.com/vibranthq/press-ready.svg?branch=master)](https://travis-ci.com/vibranthq/press-ready)
 
-## Pre-requisite
+[🇯🇵 日本語](README.ja.md)
 
-- Docker
+## Table of Contents
 
-## Quick Usage
+- [Install](#install)
+- [Usage](#usage)
+- [Tips](#tips)
+- [Advanced Usage](#advanced-usage)
+- [Contribution](#contribution)
+
+## Install
+
+### via Docker 🐳 (Recommended)
 
 Pull `vibranthq/press-ready` image from [Docker Hub](https://hub.docker.com/r/vibranthq/press-ready/).
 
-Then run `docker run -it -v $PWD:/workdir vibranthq/press-ready --input <input.pdf> --output <output.pdf>`.
-
 ```bash
 docker pull vibranthq/press-ready
-
-docker run --rm -it \
-  -v $PWD:/workdir \
-  vibranthq/press-ready \
-  --input ./input.pdf \
-  --output ./output.pdf
 ```
 
-Run `docker run --rm vibranthq/press-ready --help` for the help.
+then assign an alias for `press-ready` as a command.
 
 ```bash
-➜ docker run --rm vibranthq/press-ready --help
+alias press-ready="docker run --rm -it -v \$PWD:/workdir vibranthq/press-ready"
+```
+
+### via npm 📦
+
+```bash
+npm install -g press-ready # npm
+yarn global add press-ready # yarn
+```
+
+and install system dependencies to run `press-ready`.
+
+#### macoOS
+
+```bash
+brew install xpdf ghostscript
+```
+
+#### Ubuntu
+
+```bash
+apt-get install xpdf ghostscript
+```
+
+## Usage
+
+Run `press-ready` with `--input`. If `--output` is missing, `output.pdf` going to be used for default output path.
+
+```
+press-ready --input <input.pdf> --output <output.pdf>
+```
+
+Run with `--help` for the help.
+
+```bash
+➜ press-ready --help
 Options:
   --version          Show version number                               [boolean]
   --input            Input file path                                  [required]
@@ -45,75 +78,52 @@ Options:
   --help             Show help                                         [boolean]
 ```
 
-## Options
+### Options
 
-### Color Mode
+#### Color Mode
 
 Press-ready will use **CMYK** by default. Give `--gray-scale` option to let them use **Grayscale** instead.
 
 ```bash
-docker run --rm -it \
-  -v ${CURDIR}:/workdir \
-  vibranthq/press-ready \
+pres-ready
   --input ./input.pdf \
   --output ./output.pdf \
   --gray-scale
 ```
 
-### Boundary Boxes
+#### Boundary Boxes
 
 Option `--boundary-boxes` will build TrimBox, CropBox and BleedBox on a generated PDF.
 
 ```bash
-docker run --rm -it \
-  -v ${CURDIR}:/workdir \
-  vibranthq/press-ready \
+press-ready \
   --input ./input.pdf \
   --output ./output.pdf \
   --boundary-boxes
 ```
 
-### Outlined Fonts
+#### Outlined Fonts
 
 You might not want to use this option since press-ready automatically guess whether embedded fonts should be outlined.
 However, you can still control this behavior by passing `--enforce-outline` or `--no-enforce-outline`.
 
 ```bash
-docker run --rm -it \
-  -v ${CURDIR}:/workdir \
-  vibranthq/press-ready \
+press-ready \
   --input ./input.pdf \
   --output ./output.pdf \
   --enforce-outline
 ```
 
-### Color Profile
+#### Color Profile
 
 Currently, there is only support for **Japan 2001 Coated**. If you have any suggestions, please consider submitting an issue.
 
 ## Tips
 
-### `press-ready` command
-
-You might want to assign an alias for `press-ready` as a shorthand command.
-
-```bash
-alias press-ready="docker run -it -v \$PWD:/workdir vibranthq/press-ready"
-```
-
-Then you can type `press-ready` just like a normal command:
-
-```bash
-press-ready --help
-press-ready --input <input.pdf> --output <output.pdf>
-```
-
 ### Lint PDF
 
 ```bash
-docker run --rm -it \
-  -v ${CURDIR}:/workdir \
-  vibranthq/press-ready lint --input ./input.pdf
+press-ready lint --input ./input.pdf
 ```
 
 `press-ready lint` command produces lint result on specified PDF.
