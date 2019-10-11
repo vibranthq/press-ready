@@ -5,6 +5,7 @@
   "scripts": {
     "clean": "shx rm *.pdf",
     "dev": "node . --help",
+    "release": "scripts/release.sh",
     "test": "node . build -i test/fixture/chrome.pdf"
   },
   "dependencies": {
