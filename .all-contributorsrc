@@ -11,19 +11,20 @@
   "commitConvention": "angular",
   "contributors": [
     {
-      "login": "kmuto",
-      "name": "Kenshi Muto",
-      "avatar_url": "https://avatars2.githubusercontent.com/u/183523?v=4",
-      "profile": "http://kmuto.jp/",
-      "contributions": [
-        "code"
-      ]
-    },
-    {
       "login": "uetchy",
       "name": "Yasuaki Uechi",
       "avatar_url": "https://avatars0.githubusercontent.com/u/431808?v=4",
       "profile": "https://uechi.io",
+      "contributions": [
+        "code",
+        "doc"
+      ]
+    },
+    {
+      "login": "kmuto",
+      "name": "Kenshi Muto",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/183523?v=4",
+      "profile": "http://kmuto.jp/",
       "contributions": [
         "code"
       ]
