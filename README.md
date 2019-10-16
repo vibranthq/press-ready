@@ -195,6 +195,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <table>
   <tr>
     <td align="center"><a href="http://kmuto.jp/"><img src="https://avatars2.githubusercontent.com/u/183523?v=4" width="100px;" alt="Kenshi Muto"/><br /><sub><b>Kenshi Muto</b></sub></a><br /><a href="https://github.com/vibranthq/press-ready/commits?author=kmuto" title="Code">💻</a></td>
+    <td align="center"><a href="https://uechi.io"><img src="https://avatars0.githubusercontent.com/u/431808?v=4" width="100px;" alt="Yasuaki Uechi"/><br /><sub><b>Yasuaki Uechi</b></sub></a><br /><a href="https://github.com/vibranthq/press-ready/commits?author=uetchy" title="Code">💻</a></td>
   </tr>
 </table>
 
