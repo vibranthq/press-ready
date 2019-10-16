@@ -1,0 +1,24 @@
+{
+  "projectName": "press-ready",
+  "projectOwner": "vibranthq",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": true,
+  "commitConvention": "angular",
+  "contributors": [
+    {
+      "login": "kmuto",
+      "name": "Kenshi Muto",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/183523?v=4",
+      "profile": "http://kmuto.jp/",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7
+}
