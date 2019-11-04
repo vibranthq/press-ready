@@ -45,7 +45,7 @@ yarn global add press-ready # yarn
 
 and install system dependencies to run `press-ready`.
 
-#### macoOS
+#### macOS
 
 ```bash
 brew install poppler ghostscript
