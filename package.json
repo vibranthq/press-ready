@@ -9,7 +9,7 @@
     "test": "node . build -i test/fixture/chrome.pdf"
   },
   "dependencies": {
-    "chalk": "^2.4.2",
+    "chalk": "^3.0.0",
     "cli-table": "^0.3.1",
     "execa": "^3.2.0",
     "mustache": "^3.1.0",
