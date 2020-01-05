@@ -1,13 +1,13 @@
-const execa = require('execa');
-const shell = require('shelljs');
+import execa from 'execa';
+import shell from 'shelljs';
 
-class ParserError extends Error {}
+export class ParserError extends Error {}
 
-function isXPDFAvailable() {
+export function isXPDFAvailable() {
   return shell.which('pdffonts');
 }
 
-async function pdfFonts(filePath) {
+export async function pdfFonts(filePath) {
   const cmd = await execa('pdffonts', [filePath]);
   const result = cmd.stdout.split('\n');
 
@@ -53,7 +53,7 @@ async function pdfFonts(filePath) {
   return {rawResponse: result, fonts};
 }
 
-async function pdfInfo(filePath) {
+export async function pdfInfo(filePath) {
   const cmd = await execa('pdfinfo', ['-box', filePath]);
   let result = cmd.stdout.split('\n');
 
@@ -92,5 +92,3 @@ async function pdfInfo(filePath) {
 
   return result;
 }
-
-module.exports = {pdfFonts, pdfInfo, isXPDFAvailable};

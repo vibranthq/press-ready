@@ -1,12 +1,12 @@
-const fs = require('fs');
-const path = require('path');
-const execa = require('execa');
-const {tmpdir} = require('os');
-const {join} = require('path');
-const Mustache = require('mustache');
-const uuid = require('uuid/v1');
+import fs from 'fs';
+import path from 'path';
+import execa from 'execa';
+import {tmpdir} from 'os';
+import {join} from 'path';
+import Mustache from 'mustache';
+import uuid from 'uuid/v1';
+import shell from 'shelljs';
 const debug = require('debug')('press-ready');
-const shell = require('shelljs');
 
 const ASSETS_DIR = path.resolve(__dirname, '..', 'assets');
 

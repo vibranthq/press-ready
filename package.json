@@ -4,8 +4,9 @@
   "version": "2.2.0",
   "author": "Yasuaki Uechi <y@uechi.io> (https://uechi.io/)",
   "scripts": {
+    "build": "tsc && shx chmod +x lib/cli.js",
     "clean": "shx rm *.pdf",
-    "dev": "node . --help",
+    "dev": "tsc -w",
     "release": "scripts/release.sh",
     "test": "node . build -i test/fixture/chrome.pdf"
   },
@@ -19,6 +20,7 @@
     "yargs": "^15.0.2"
   },
   "devDependencies": {
+    "@types/node": "^13.1.4",
     "debug": "^4.1.1",
     "eslint": "^6.2.2",
     "husky": "^3.0.4",
@@ -26,10 +28,12 @@
     "prettier": "^1.18.2",
     "pretty-quick": "^2.0.0",
     "shx": "^0.3.2",
-    "typescript": "^3.6.4"
+    "typescript": "^3.7.4"
   },
-  "main": "src/index.js",
+  "main": "lib/index.js",
+  "module": "src/index.js",
   "files": [
+    "lib",
     "src",
     "assets"
   ],
@@ -47,7 +51,7 @@
     }
   },
   "license": "Apache-2.0",
-  "bin": "src/cli.js",
+  "bin": "lib/cli.js",
   "bugs": "https://github.com/vibranthq/press-ready/issues",
   "homepage": "https://github.com/vibranthq/press-ready",
   "keywords": [
