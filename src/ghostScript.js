@@ -8,39 +8,22 @@ const uuid = require('uuid/v1');
 const debug = require('debug')('press-ready');
 const shell = require('shelljs');
 
+const ASSETS_DIR = path.resolve(__dirname, '..', 'assets');
+
 function isGhostscriptAvailable() {
   return shell.which('gs');
 }
 
-async function ghostScript(
-  {
-    inputPath,
-    outputPath,
-    pdfxDefTemplatePath,
-    sourceIccProfilePath,
-    grayScale,
-    enforceOutline,
-    boundaryBoxes,
-    title,
-  } = {
-    pdfxDefTemplatePath: path.resolve(
-      __dirname,
-      '..',
-      'assets',
-      'PDFX_def.ps.mustache',
-    ),
-    sourceIccProfilePath: path.resolve(
-      __dirname,
-      '..',
-      'assets',
-      'JapanColor2001Coated.icc',
-    ),
-    grayScale: false,
-    enforceOutline: false,
-    boundaryBoxes: false,
-    title: 'Auto-generated PDF (press-ready)',
-  },
-) {
+async function ghostScript({
+  inputPath,
+  outputPath,
+  pdfxDefTemplatePath = path.join(ASSETS_DIR, 'PDFX_def.ps.mustache'),
+  sourceIccProfilePath = path.join(ASSETS_DIR, 'JapanColor2001Coated.icc'),
+  grayScale = false,
+  enforceOutline = false,
+  boundaryBoxes = false,
+  title = 'Auto-generated PDF (press-ready)',
+}) {
   const workingDir = tmpdir();
   const id = uuid();
 

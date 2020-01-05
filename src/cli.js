@@ -8,7 +8,6 @@ const Table = require('cli-table');
 const {pdfFonts, pdfInfo, isXPDFAvailable} = require('./xpdf');
 const {ghostScript, isGhostscriptAvailable} = require('./ghostScript');
 
-const ASSETS_DIR = path.resolve(__dirname, '..', 'assets');
 const tableArgs = {
   chars: {
     top: '',
@@ -148,8 +147,6 @@ $ apt-get install xpdf
   const gsResult = await ghostScript({
     inputPath: resolvedInput,
     outputPath: resolvedOutput,
-    pdfxDefTemplatePath: path.join(ASSETS_DIR, 'PDFX_def.ps.mustache'),
-    sourceIccProfilePath: path.join(ASSETS_DIR, 'JapanColor2001Coated.icc'),
     grayScale: args.grayScale,
     enforceOutline: isEnforceOutline,
     boundaryBoxes: args.boundaryBoxes,
