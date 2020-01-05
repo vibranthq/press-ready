@@ -5,7 +5,7 @@ import {rawLog, log} from './util';
 import {tableArgs} from './table';
 const debug = require('debug')('press-ready');
 
-export async function inspectPDF(filePath) {
+export async function inspectPDF(filePath: string) {
   const {fonts} = await pdfFonts(filePath);
 
   if (fonts.length) {

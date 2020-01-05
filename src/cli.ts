@@ -7,15 +7,23 @@ import {lint} from './commands/lint';
 import {log, rawLog} from './util';
 import chalk from 'chalk';
 
+export interface Args {
+  input: unknown;
+  output: string;
+  'gray-scale'?: boolean;
+  'enforce-outline'?: boolean;
+  'boundary-boxes'?: boolean;
+}
+
 yargs
   .scriptName('press-ready')
   .command({
     command: 'build',
-    desc: 'build PDF',
+    describe: 'build PDF',
     builder: (yargs) =>
       yargs
         .option('input', {
-          demandOption: true,
+          demand: true,
           alias: 'i',
           description: 'Input file path (relative)',
         })
@@ -42,7 +50,7 @@ yargs
   })
   .command({
     command: 'lint <input>',
-    desc: 'lint PDF',
+    describe: 'lint PDF',
     builder: (yargs) =>
       yargs.positional('input', {
         required: true,
@@ -52,7 +60,8 @@ yargs
   })
   .demandCommand()
   .help()
-  .fail((msg, err, yargs) => {
+  // @ts-ignore
+  .fail((msg: string, err: Error, yargs: any) => {
     if (err) {
       log(chalk.red(err));
     } else {

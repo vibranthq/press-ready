@@ -6,9 +6,10 @@ import {ghostScript, isGhostscriptAvailable} from '../ghostScript';
 import {inspectPDF} from '../inspectPDF';
 import {log, rawLog} from '../util';
 import {tableArgs} from '../table';
+import {Args} from '../cli';
 
-export async function build(args) {
-  if (!args.input || !args.output) {
+export async function build(args: Args) {
+  if (typeof args.input !== 'string' || !args.output) {
     throw new Error('No input given');
   }
   if (!isGhostscriptAvailable()) {
@@ -34,8 +35,8 @@ $ apt-get install xpdf
   log(`Listing fonts in '${args.input}'`);
   const {shouldEnforceOutline} = await inspectPDF(resolvedInput);
   const isEnforceOutline =
-    args.enforceOutline !== undefined
-      ? args.enforceOutline
+    args['enforce-outline'] !== undefined
+      ? args['enforce-outline']
       : shouldEnforceOutline;
   log('Generating PDF');
   const table = new Table(tableArgs);
@@ -47,7 +48,7 @@ $ apt-get install xpdf
       Output: chalk.white(args.output),
     },
     {
-      'Color Mode': args.grayScale
+      'Color Mode': args['gray-scale']
         ? chalk.white('Gray')
         : `${chalk.cyan('C')}${chalk.red('M')}${chalk.yellow('Y')}${chalk.white(
             'K',
@@ -59,7 +60,7 @@ $ apt-get install xpdf
         : chalk.red('no'),
     },
     {
-      'Boundary boxes': args.boundaryBoxes
+      'Boundary boxes': args['boundary-boxes']
         ? chalk.green('yes')
         : chalk.red('no'),
     },
@@ -68,9 +69,9 @@ $ apt-get install xpdf
   const gsResult = await ghostScript({
     inputPath: resolvedInput,
     outputPath: resolvedOutput,
-    grayScale: args.grayScale,
+    grayScale: args['gray-scale'],
     enforceOutline: isEnforceOutline,
-    boundaryBoxes: args.boundaryBoxes,
+    boundaryBoxes: args['boundary-boxes'],
   });
   if (gsResult.rawError) {
     log(chalk.red(gsResult.rawError));

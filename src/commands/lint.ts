@@ -2,8 +2,12 @@ import chalk from 'chalk';
 import {pdfInfo} from '../xpdf';
 import {inspectPDF} from '../inspectPDF';
 import {log} from '../util';
+import {Args} from '../cli';
 
-export async function lint(args) {
+export async function lint(args: Args) {
+  if (typeof args.input !== 'string') {
+    throw new Error('Invalid input');
+  }
   const info = await pdfInfo(args.input);
 
   log(`Linting metadata for '${args.input}'`);

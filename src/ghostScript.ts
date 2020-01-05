@@ -8,13 +8,24 @@ import uuid from 'uuid/v1';
 import shell from 'shelljs';
 const debug = require('debug')('press-ready');
 
+export interface GhostscriptOption {
+  inputPath: string;
+  outputPath: string;
+  pdfxDefTemplatePath?: string;
+  sourceIccProfilePath?: string;
+  grayScale?: boolean;
+  enforceOutline?: boolean;
+  boundaryBoxes?: boolean;
+  title?: string;
+}
+
 const ASSETS_DIR = path.resolve(__dirname, '..', 'assets');
 
-function isGhostscriptAvailable() {
+export function isGhostscriptAvailable() {
   return shell.which('gs');
 }
 
-async function ghostScript({
+export async function ghostScript({
   inputPath,
   outputPath,
   pdfxDefTemplatePath = path.join(ASSETS_DIR, 'PDFX_def.ps.mustache'),
@@ -23,7 +34,7 @@ async function ghostScript({
   enforceOutline = false,
   boundaryBoxes = false,
   title = 'Auto-generated PDF (press-ready)',
-}) {
+}: GhostscriptOption) {
   const workingDir = tmpdir();
   const id = uuid();
 
@@ -81,7 +92,7 @@ async function ghostScript({
   }
 
   const args = [...gsOptions, pdfxDefPath, inputPath];
-  const command = [gsCommand, args];
+  const command: [string, string[]] = [gsCommand, args];
 
   debug(gsCommand, args.join(' '));
 
@@ -105,8 +116,3 @@ async function ghostScript({
     fs.unlinkSync(pdfxDefPath);
   }
 }
-
-module.exports = {
-  ghostScript,
-  isGhostscriptAvailable,
-};
