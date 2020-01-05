@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM ubuntu:18.04 as base
 
 LABEL maintainer="Yasuaki Uechi"
 LABEL license="Apache-2.0"
@@ -15,12 +15,21 @@ RUN curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list
 RUN apt-get update && apt-get install -y nodejs yarn
 
-# press-ready
 WORKDIR /app
 COPY assets/* /app/assets/
 COPY package.json yarn.lock /app/
+
+# build press-ready
+FROM base as build
+RUN yarn install
+COPY tsconfig.json .
+COPY src/ src/
+RUN NODE_ENV=production yarn build
+
+FROM base as runtime
+COPY --from=build /app/lib/ lib/
+RUN ls lib
 RUN yarn install --only=production
-COPY src/* /app/src/
 
 WORKDIR /workdir
-ENTRYPOINT [ "/app/src/cli.js" ]
+ENTRYPOINT [ "/app/lib/cli.js" ]
