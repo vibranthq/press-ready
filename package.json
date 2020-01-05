@@ -2,6 +2,7 @@
   "name": "press-ready",
   "description": "Make your PDFs compliant with press-ready PDF/X-1a.",
   "version": "2.1.0",
+  "author": "Yasuaki Uechi <y@uechi.io> (https://uechi.io/)",
   "scripts": {
     "clean": "shx rm *.pdf",
     "dev": "node . --help",
@@ -27,7 +28,12 @@
     "shx": "^0.3.2",
     "typescript": "^3.6.4"
   },
-  "main": "src/cli.js",
+  "main": "src/index.js",
+  "files": [
+    "src",
+    "assets"
+  ],
+  "repository": "https://github.com/vibranthq/press-ready.git",
   "lint-staged": {
     "*.js": [
       "eslint --fix",
@@ -40,18 +46,12 @@
       "pre-push": "yarn test"
     }
   },
-  "author": "Yasuaki Uechi <y@uechi.io> (https://uechi.io/)",
   "license": "Apache-2.0",
   "bin": "src/cli.js",
   "bugs": "https://github.com/vibranthq/press-ready/issues",
-  "files": [
-    "src",
-    "assets"
-  ],
   "homepage": "https://github.com/vibranthq/press-ready",
   "keywords": [
     "press-ready",
     "printing"
-  ],
-  "repository": "https://github.com/vibranthq/press-ready.git"
+  ]
 }
