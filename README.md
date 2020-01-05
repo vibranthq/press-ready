@@ -30,7 +30,7 @@ Pull `vibranthq/press-ready` image from [Docker Hub](https://hub.docker.com/r/vi
 docker pull vibranthq/press-ready
 ```
 
-then assign an alias for `press-ready` as a command.
+then assign an alias for `press-ready`:
 
 ```bash
 alias press-ready="docker run --rm -it -v \$PWD:/workdir vibranthq/press-ready"
@@ -59,25 +59,25 @@ apt-get install xpdf ghostscript
 
 ## Usage
 
-Run `press-ready` with `--input`. If `--output` is missing, `output.pdf` going to be used for default output path.
+Run `press-ready` with `-i, --input`. If `-o, --output` is missing, `output.pdf` going to be used for default output path.
 
 ```
-press-ready --input <input.pdf> --output <output.pdf>
+press-ready build -i <input.pdf> -o <output.pdf>
 ```
 
 Run with `--help` for the help.
 
 ```bash
-➜ press-ready --help
+❯ press-ready --help
+press-ready <command>
+
+Commands:
+  press-ready build         build PDF
+  press-ready lint <input>  lint PDF
+
 Options:
-  --version          Show version number                               [boolean]
-  --input            Input file path                                  [required]
-  --output           Output file path                  [default: "./output.pdf"]
-  --gray-scale       Use gray scale color space instead of CMYK
-                                                      [boolean] [default: false]
-  --enforce-outline  Convert embedded fonts to outlined fonts          [boolean]
-  --boundary-boxes   Add boundary boxes on every page [boolean] [default: false]
-  --help             Show help                                         [boolean]
+  --version  Show version number                                       [boolean]
+  --help     Show help                                                 [boolean]
 ```
 
 ### Options
@@ -87,7 +87,7 @@ Options:
 Press-ready will use **CMYK** by default. Give `--gray-scale` option to let them use **Grayscale** instead.
 
 ```bash
-pres-ready
+pres-ready build \
   --input ./input.pdf \
   --output ./output.pdf \
   --gray-scale
@@ -98,7 +98,7 @@ pres-ready
 Option `--boundary-boxes` will build TrimBox, CropBox and BleedBox on a generated PDF.
 
 ```bash
-press-ready \
+press-ready build \
   --input ./input.pdf \
   --output ./output.pdf \
   --boundary-boxes
@@ -110,7 +110,7 @@ You might not want to use this option since press-ready automatically guess whet
 However, you can still control this behavior by passing `--enforce-outline` or `--no-enforce-outline`.
 
 ```bash
-press-ready \
+press-ready bulid \
   --input ./input.pdf \
   --output ./output.pdf \
   --enforce-outline
@@ -125,7 +125,7 @@ Currently, there is only support for **Japan 2001 Coated**. If you have any sugg
 ### Lint PDF
 
 ```bash
-press-ready lint --input ./input.pdf
+press-ready lint ./input.pdf
 ```
 
 `press-ready lint` command produces lint result on specified PDF.
