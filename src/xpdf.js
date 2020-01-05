@@ -1,6 +1,11 @@
 const execa = require('execa');
+const shell = require('shelljs');
 
 class ParserError extends Error {}
+
+function isXPDFAvailable() {
+  return shell.which('pdffonts');
+}
 
 async function pdfFonts(filePath) {
   const cmd = await execa('pdffonts', [filePath]);
@@ -88,4 +93,4 @@ async function pdfInfo(filePath) {
   return result;
 }
 
-module.exports = {pdfFonts, pdfInfo};
+module.exports = {pdfFonts, pdfInfo, isXPDFAvailable};

@@ -1,10 +1,3 @@
-%!
-% This is a sample prefix file for creating a PDF/X-3 document.
-% Feel free to modify entries marked with "Customize".
-
-% This assumes an ICC profile to reside in the file (ISO Coated sb.icc),
-% unless the user modifies the corresponding line below.
-
 systemdict /ProcessColorModel known {
   systemdict /ProcessColorModel get dup /DeviceGray ne exch /DeviceCMYK ne and
 } {
@@ -15,7 +8,6 @@ systemdict /ProcessColorModel known {
 } if
 
 % Define entries to the document Info dictionary :
-
 /ICCProfile ({{{iccProfilePath}}}) def  % Customize or remove.
 
 [ /GTS_PDFXVersion (PDF/X-1:2001) % Must be so (the standard requires).
@@ -25,7 +17,6 @@ systemdict /ProcessColorModel known {
   /DOCINFO pdfmark
 
 % Define an ICC profile :
-
 currentdict /ICCProfile known {
   [/_objdef {icc_PDFX} /type /stream /OBJ pdfmark
   [{icc_PDFX} <</N systemdict /ProcessColorModel get /DeviceGray eq {1} {4} ifelse >> /PUT pdfmark
@@ -33,7 +24,6 @@ currentdict /ICCProfile known {
 } if
 
 % Define the output intent dictionary :
-
 [/_objdef {OutputIntent_PDFX} /type /dict /OBJ pdfmark
 [{OutputIntent_PDFX} <<
   /Type /OutputIntent              % Must be so (the standard requires).

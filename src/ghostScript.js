@@ -1,20 +1,63 @@
 const fs = require('fs');
+const path = require('path');
 const execa = require('execa');
 const {tmpdir} = require('os');
 const {join} = require('path');
 const Mustache = require('mustache');
+const uuid = require('uuid/v1');
 const debug = require('debug')('press-ready');
+const shell = require('shelljs');
+
+function isGhostscriptAvailable() {
+  return shell.which('gs');
+}
 
 async function ghostScript(
-  inputPath,
-  outputPath,
-  pdfxDefTemplatePath,
-  iccProfilePath,
-  grayScale = false,
-  enforceOutline = false,
-  boundaryBoxes = false,
+  {
+    inputPath,
+    outputPath,
+    pdfxDefTemplatePath,
+    sourceIccProfilePath,
+    grayScale,
+    enforceOutline,
+    boundaryBoxes,
+    title,
+  } = {
+    pdfxDefTemplatePath: path.resolve(
+      __dirname,
+      '..',
+      'assets',
+      'PDFX_def.ps.mustache',
+    ),
+    sourceIccProfilePath: path.resolve(
+      __dirname,
+      '..',
+      'assets',
+      'JapanColor2001Coated.icc',
+    ),
+    grayScale: false,
+    enforceOutline: false,
+    boundaryBoxes: false,
+    title: 'Auto-generated PDF (press-ready)',
+  },
 ) {
-  const pdfxDefPath = join(tmpdir(), 'press-ready-def.ps');
+  const workingDir = tmpdir();
+  const id = uuid();
+
+  // ICC profile
+  const iccProfilePath = join(workingDir, `press-ready-${id}.icc`);
+  fs.copyFileSync(sourceIccProfilePath, iccProfilePath);
+
+  // PDFXDef
+  const pdfxDefPath = join(workingDir, `press-ready-${id}.ps`);
+  const pdfxDefTemplateString = fs.readFileSync(pdfxDefTemplatePath, 'utf-8');
+  const pdfxDef = Mustache.render(pdfxDefTemplateString, {
+    title,
+    iccProfilePath,
+  });
+  fs.writeFileSync(pdfxDefPath, pdfxDef, 'utf-8');
+
+  // configure gs command
   const gsCommand = 'gs';
   const gsOptions = [
     '-dPDFX',
@@ -54,21 +97,13 @@ async function ghostScript(
     );
   }
 
-  // generate PDFX_def.ps
-  const pdfxDefTemplate = fs.readFileSync(pdfxDefTemplatePath, 'utf-8');
-  const pdfxDef = Mustache.render(pdfxDefTemplate, {
-    title: 'Auto-generated PDF (press-ready)',
-    iccProfilePath,
-  });
-  fs.writeFileSync(pdfxDefPath, pdfxDef, 'utf-8');
-
-  // generate pdf with ghostscript
   const args = [...gsOptions, pdfxDefPath, inputPath];
   const command = [gsCommand, args];
 
-  debug(command[0], command[1].join(' '));
+  debug(gsCommand, args.join(' '));
 
   try {
+    // generate pdf with ghostscript
     const {stdout, stderr} = await execa(...command);
 
     return {
@@ -82,9 +117,13 @@ async function ghostScript(
       rawOutput: err.stdout,
       rawError: err.stderr,
     };
+  } finally {
+    fs.unlinkSync(iccProfilePath);
+    fs.unlinkSync(pdfxDefPath);
   }
 }
 
 module.exports = {
   ghostScript,
+  isGhostscriptAvailable,
 };

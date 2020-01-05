@@ -5,8 +5,8 @@ const path = require('path');
 const chalk = require('chalk');
 const Table = require('cli-table');
 
-const {pdfFonts, pdfInfo} = require('./xpdf');
-const {ghostScript} = require('./ghostScript');
+const {pdfFonts, pdfInfo, isXPDFAvailable} = require('./xpdf');
+const {ghostScript, isGhostscriptAvailable} = require('./ghostScript');
 
 const ASSETS_DIR = path.resolve(__dirname, '..', 'assets');
 const tableArgs = {
@@ -86,6 +86,26 @@ async function build(args) {
     throw new Error('No input given');
   }
 
+  if (!isGhostscriptAvailable()) {
+    throw new Error(`'gs' command missing. Install Ghostscript on your machine.
+macOS:
+$ brew install ghostscript
+
+Ubuntu:
+$ apt-get install ghostscript
+`);
+  }
+
+  if (!isXPDFAvailable()) {
+    throw new Error(`'pdffonts' command missing. Install XPDF on your machine.
+macOS:
+$ brew install xpdf
+
+Ubuntu:
+$ apt-get install xpdf
+`);
+  }
+
   const resolvedInput = path.resolve(args.input);
   const resolvedOutput = path.resolve(args.output);
 
@@ -125,15 +145,15 @@ async function build(args) {
   );
   rawLog(table.toString());
 
-  const gsResult = await ghostScript(
-    resolvedInput,
-    resolvedOutput,
-    path.join(ASSETS_DIR, 'PDFX_def.ps.mustache'),
-    path.join(ASSETS_DIR, 'JapanColor2001Coated.icc'),
-    args.grayScale,
-    isEnforceOutline,
-    args.boundaryBoxes,
-  );
+  const gsResult = await ghostScript({
+    inputPath: resolvedInput,
+    outputPath: resolvedOutput,
+    pdfxDefTemplatePath: path.join(ASSETS_DIR, 'PDFX_def.ps.mustache'),
+    sourceIccProfilePath: path.join(ASSETS_DIR, 'JapanColor2001Coated.icc'),
+    grayScale: args.grayScale,
+    enforceOutline: isEnforceOutline,
+    boundaryBoxes: args.boundaryBoxes,
+  });
 
   if (gsResult.rawError) {
     log(chalk.red(gsResult.rawError));

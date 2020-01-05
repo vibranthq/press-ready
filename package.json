@@ -13,6 +13,8 @@
     "cli-table": "^0.3.1",
     "execa": "^4.0.0",
     "mustache": "^3.1.0",
+    "shelljs": "^0.8.3",
+    "uuid": "^3.3.3",
     "yargs": "^15.0.2"
   },
   "devDependencies": {
