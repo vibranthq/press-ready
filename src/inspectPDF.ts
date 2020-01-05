@@ -1,6 +1,6 @@
 import chalk from 'chalk';
 import Table from 'cli-table';
-import {pdfFonts} from './xpdf';
+import {pdfFonts} from './pdffonts';
 import {rawLog, log} from './util';
 import {tableArgs} from './table';
 const debug = require('debug')('press-ready');

@@ -1,5 +1,5 @@
 import chalk from 'chalk';
-import {pdfInfo} from '../xpdf';
+import {pdfInfo} from '../pdffonts';
 import {inspectPDF} from '../inspectPDF';
 import {log} from '../util';
 import {Args} from '../cli';

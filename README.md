@@ -54,7 +54,7 @@ brew install poppler ghostscript
 #### Ubuntu
 
 ```bash
-apt-get install xpdf ghostscript
+apt-get install poppler-utils ghostscript
 ```
 
 ## Usage

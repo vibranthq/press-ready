@@ -58,7 +58,7 @@ export interface PDFFontsResponse {
 
 export class ParserError extends Error {}
 
-export function isXPDFAvailable() {
+export function isPdfFontsAvailable() {
   return shell.which('pdffonts');
 }
 

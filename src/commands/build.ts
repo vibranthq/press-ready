@@ -1,7 +1,7 @@
 import path from 'path';
 import chalk from 'chalk';
 import Table from 'cli-table';
-import {isXPDFAvailable} from '../xpdf';
+import {isPdfFontsAvailable} from '../pdffonts';
 import {ghostScript, isGhostscriptAvailable} from '../ghostScript';
 import {inspectPDF} from '../inspectPDF';
 import {log, rawLog} from '../util';
@@ -21,13 +21,13 @@ Ubuntu:
 $ apt-get install ghostscript
 `);
   }
-  if (!isXPDFAvailable()) {
-    throw new Error(`'pdffonts' command missing. Install XPDF on your machine.
+  if (!isPdfFontsAvailable()) {
+    throw new Error(`'pdffonts' command missing. Install pdffonts on your machine.
 macOS:
 $ brew install xpdf
 
 Ubuntu:
-$ apt-get install xpdf
+$ apt-get install poppler-utils
 `);
   }
   const resolvedInput = path.resolve(args.input);
