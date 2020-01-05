@@ -2,8 +2,8 @@ import chalk from 'chalk';
 import Table from 'cli-table';
 import {pdfFonts} from './xpdf';
 import {rawLog, log} from './util';
-
 import {tableArgs} from './table';
+const debug = require('debug')('press-ready');
 
 export async function inspectPDF(filePath) {
   const {fonts} = await pdfFonts(filePath);
@@ -25,11 +25,18 @@ export async function inspectPDF(filePath) {
   } else {
     log(chalk.yellow('No fonts found'));
   }
+
+  debug(fonts);
+
   // Check if all fonts are embedded
   const isEmbedded = fonts.every((font) => font.emb === 'yes');
+
   // Check if all fonts are a subset of font
   const isSubset = fonts.every((font) => font.sub === 'yes');
-  const shouldEnforceOutline = !isEmbedded || !isSubset;
+
+  // const shouldEnforceOutline = !isEmbedded || !isSubset;
+  const shouldEnforceOutline = fonts.some((font) => font.type === 'Type 3');
+
   if (shouldEnforceOutline) {
     log(chalk.red('Some fonts need to be outlined'));
   } else {
