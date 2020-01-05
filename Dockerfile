@@ -3,17 +3,17 @@ FROM ubuntu:18.04
 LABEL maintainer="Yasuaki Uechi"
 LABEL license="Apache-2.0"
 
-RUN apt-get update -qq && apt-get install -yqq curl
-
-# Xpdf, Ghostscript, ImageMagick
-RUN apt-get update -qq && apt-get install -yqq xpdf ghostscript imagemagick
+# Xpdf, Ghostscript
+RUN apt-get update -qq && apt-get install -yqq \
+  curl \
+  xpdf=3.04-7 \
+  ghostscript=9.26~dfsg+0-0ubuntu0.18.04.12
 
 # NodeJS
-RUN apt-get update -qq && apt-get install -yqq nodejs npm && npm install n -g && n 11.13.0
-RUN npm install -g yarn
-
-# AWS
-RUN apt-get update -qq && apt-get install -yqq python3-pip && pip3 install awscli
+RUN curl -sL https://deb.nodesource.com/setup_13.x | bash -
+RUN curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list
+RUN apt-get update && apt-get install -y nodejs yarn
 
 # press-ready
 WORKDIR /app

@@ -9,6 +9,7 @@ VERSION=$(git describe --tags | sed 's/^v//')
 echo "Releasing ${VERSION}"
 
 # publish docker image
-docker build -t vibranthq/press-ready:${VERSION} .
+docker build -t vibranthq/press-ready .
+docker tag vibranthq/press-ready vibranthq/press-ready:${VERSION} 
 docker push vibranthq/press-ready
 docker push vibranthq/press-ready:${VERSION}
