@@ -65,7 +65,9 @@ async function ghostScript(
     // generate pdf with ghostscript
     const args = [...gsOptions, pdfxDefPath, inputPath]
     const command = [gsCommand, args]
-    debug(command)
+
+    debug(command[0], command[1].join(' '))
+
     try {
         const { stdout, stderr } = await execa(...command)
         return {
