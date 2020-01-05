@@ -1,7 +1,7 @@
 {
   "name": "press-ready",
   "description": "Make your PDFs compliant with press-ready PDF/X-1a.",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "author": "Yasuaki Uechi <y@uechi.io> (https://uechi.io/)",
   "scripts": {
     "clean": "shx rm *.pdf",
