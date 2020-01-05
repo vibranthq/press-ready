@@ -8,7 +8,7 @@
     "clean": "shx rm *.pdf",
     "dev": "tsc -w",
     "release": "scripts/release.sh",
-    "test": "node . build -i test/fixture/chrome.pdf"
+    "test": "yarn build && node ./lib/cli.js build -i test/fixture/chrome.pdf"
   },
   "dependencies": {
     "chalk": "^3.0.0",
@@ -30,8 +30,8 @@
     "shx": "^0.3.2",
     "typescript": "^3.7.4"
   },
-  "main": "lib/index.js",
   "module": "src/index.js",
+  "main": "lib/index.js",
   "files": [
     "lib",
     "src",
