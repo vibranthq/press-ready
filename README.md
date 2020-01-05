@@ -14,11 +14,11 @@
 
 ## Table of Contents
 
--   [Install](#install)
--   [Usage](#usage)
--   [Tips](#tips)
--   [Advanced Usage](#advanced-usage)
--   [Contribution](#contribution)
+- [Install](#install)
+- [Usage](#usage)
+- [Tips](#tips)
+- [Advanced Usage](#advanced-usage)
+- [Contribution](#contribution)
 
 ## Install
 
