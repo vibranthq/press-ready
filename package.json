@@ -35,11 +35,9 @@
     "shx": "^0.3.2",
     "typescript": "^3.7.4"
   },
-  "module": "src/index.js",
   "main": "lib/index.js",
   "files": [
     "lib",
-    "src",
     "assets"
   ],
   "repository": "https://github.com/vibranthq/press-ready.git",
