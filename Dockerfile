@@ -28,7 +28,6 @@ RUN NODE_ENV=production yarn build
 
 FROM base as runtime
 COPY --from=build /app/lib/ lib/
-RUN ls lib
 RUN yarn install --only=production
 
 WORKDIR /workdir
