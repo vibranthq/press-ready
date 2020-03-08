@@ -4,7 +4,7 @@ import execa from 'execa';
 import {tmpdir} from 'os';
 import {join} from 'path';
 import Mustache from 'mustache';
-import uuid from 'uuid/v1';
+import {v4 as uuid} from 'uuid';
 import shell from 'shelljs';
 const debug = require('debug')('press-ready');
 
