@@ -22,7 +22,7 @@
     "execa": "^4.0.0",
     "mustache": "^4.0.0",
     "shelljs": "^0.8.3",
-    "uuid": "^7.0.2",
+    "uuid": "^8.1.0",
     "yargs": "^15.1.0"
   },
   "devDependencies": {
