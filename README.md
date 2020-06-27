@@ -6,6 +6,8 @@
 
 > Make your PDF compliant with press-ready PDF/X-1a.
 
+![npm: version](https://badgen.net/npm/v/press-ready)
+![npm: total downloads](https://badgen.net/npm/dt/press-ready)
 [![Build Status](https://travis-ci.com/vibranthq/press-ready.svg?branch=master)](https://travis-ci.com/vibranthq/press-ready)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/2c6709d994ab4526af91d11f9ef77193)](https://www.codacy.com/gh/vibranthq/press-ready?utm_source=github.com&utm_medium=referral&utm_content=vibranthq/press-ready&utm_campaign=Badge_Grade)
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/vibranthq/press-ready.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/vibranthq/press-ready/alerts/)
@@ -179,6 +181,10 @@ PRs are welcome. Make sure to do `make test` before filing pull requests.
 make build
 make test
 ```
+
+## Blogs
+
+- [press-ready - PDF を PDF/X-1a に変換 MOONGIFT](https://www.moongift.jp/2019/05/press-ready-pdf%E3%82%92pdfx-1a%E3%81%AB%E5%A4%89%E6%8F%9B/)
 
 ## Contributors ✨
 
