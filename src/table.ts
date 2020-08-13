@@ -16,5 +16,5 @@ export const tableArgs = {
     'right-mid': '',
     middle: ' ',
   },
-  style: {'padding-left': 0, head: ['white']},
-};
+  style: { 'padding-left': 0, head: ['white'] },
+}

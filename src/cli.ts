@@ -1,18 +1,18 @@
 #!/usr/bin/env node
 
-import yargs from 'yargs';
+import yargs from 'yargs'
 
-import {build} from './commands/build';
-import {lint} from './commands/lint';
-import {log, rawLog} from './util';
-import chalk from 'chalk';
+import { build } from './commands/build'
+import { lint } from './commands/lint'
+import { log, rawLog } from './util'
+import chalk from 'chalk'
 
 export interface Args {
-  input: unknown;
-  output: string;
-  'gray-scale'?: boolean;
-  'enforce-outline'?: boolean;
-  'boundary-boxes'?: boolean;
+  input: unknown
+  output: string
+  'gray-scale'?: boolean
+  'enforce-outline'?: boolean
+  'boundary-boxes'?: boolean
 }
 
 yargs
@@ -63,10 +63,10 @@ yargs
   // @ts-ignore
   .fail((msg: string, err: Error, yargs: any) => {
     if (err) {
-      log(chalk.red(err));
+      log(chalk.red(err))
     } else {
-      rawLog(yargs.help(), '\n');
-      rawLog(msg);
+      rawLog(yargs.help(), '\n')
+      rawLog(msg)
     }
-    process.exit();
-  }).argv;
+    process.exit()
+  }).argv
