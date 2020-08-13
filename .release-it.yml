@@ -1,0 +1,14 @@
+# https://github.com/release-it/release-it/blob/master/config/release-it.json
+git:
+  commitMessage: 'chore: release v${version}'
+github:
+  release: true
+  releaseName: 'v${version}'
+hooks: # https://github.com/release-it/release-it#hooks
+  before:init:
+    - npm test
+    - docker build -t vibranthq/press-ready .
+  after:release: VERSION=${version} ./scripts/publish-docker-hub.sh
+plugins:
+  '@release-it/conventional-changelog': # https://github.com/release-it/conventional-changelog
+    preset: angular

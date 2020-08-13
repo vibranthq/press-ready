@@ -5,10 +5,11 @@
   "author": "Yasuaki Uechi <y@uechi.io> (https://uechi.io/)",
   "scripts": {
     "build": "tsc && shx chmod +x lib/cli.js",
-    "clean": "shx rm *.pdf",
+    "clean": "shx rm *.pdf lib",
     "dev": "tsc -w",
-    "release": "scripts/release.sh",
-    "test": "yarn build && node ./lib/cli.js build -i test/fixture/chrome.pdf"
+    "prepublishOnly": "npm run clean && npm run build",
+    "release": "release-it",
+    "test": "npm run build && node ./lib/cli.js build -i test/fixture/chrome.pdf"
   },
   "types": "lib/index.d.ts",
   "main": "lib/index.js",
@@ -33,19 +34,21 @@
     "yargs": "^15.1.0"
   },
   "devDependencies": {
+    "@release-it/conventional-changelog": "^1.1.4",
     "@types/node": "^14.0.9",
     "eslint": "^7.6.0",
     "husky": "^4.0.7",
     "lint-staged": "^10.0.8",
     "prettier": "^2.0.2",
     "pretty-quick": "^2.0.0",
+    "release-it": "^13.6.6",
     "shx": "^0.3.2",
     "typescript": "^3.8.3"
   },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged && pretty-quick --staged",
-      "pre-push": "yarn test"
+      "pre-push": "npm test"
     }
   },
   "lint-staged": {
