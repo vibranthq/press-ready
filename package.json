@@ -5,7 +5,7 @@
   "author": "Yasuaki Uechi <y@uechi.io> (https://uechi.io/)",
   "scripts": {
     "build": "tsc && shx chmod +x lib/cli.js",
-    "clean": "shx rm *.pdf lib",
+    "clean": "shx rm -rf *.pdf lib",
     "dev": "tsc -w",
     "prepublishOnly": "npm run clean && npm run build",
     "release": "release-it",
