@@ -59,6 +59,14 @@ brew install poppler ghostscript
 apt-get install poppler-utils ghostscript
 ```
 
+#### Windows
+
+Download and install the Ghostscript for Windows at <https://www.ghostscript.com/download/gsdnld.html>.
+Then, add the installed Ghostscript's bin directory (e.g., "C:\\Program Files\\gs\\gs9.52\\bin") to the PATH environment variable.
+
+Download and install the Xpdf command line tools for Windows at <http://www.xpdfreader.com/download.html>.
+Then, add the installed Xpdf's bin directory (e.g., "C:\\xpdf-tools-win-4.02\\bin64") to the PATH environment variable.
+
 ## Usage
 
 Run `press-ready` with `-i, --input`. If `-o, --output` is missing, `output.pdf` going to be used for default output path.

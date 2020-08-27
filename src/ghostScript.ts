@@ -1,8 +1,8 @@
 import fs from 'fs'
-import path from 'path'
+import path from 'upath'
 import execa from 'execa'
 import { tmpdir } from 'os'
-import { join } from 'path'
+import { join } from 'upath'
 import Mustache from 'mustache'
 import { v4 as uuid } from 'uuid'
 import shell from 'shelljs'
@@ -22,7 +22,11 @@ export interface GhostscriptOption {
 const ASSETS_DIR = path.resolve(__dirname, '..', 'assets')
 
 export function isGhostscriptAvailable() {
-  return shell.which('gs')
+  return (
+    (process.platform === 'win32' &&
+      (shell.which('gswin64c') || shell.which('gswin32c'))) ||
+    shell.which('gs')
+  )
 }
 
 export async function ghostScript({
@@ -52,7 +56,11 @@ export async function ghostScript({
   fs.writeFileSync(pdfxDefPath, pdfxDef, 'utf-8')
 
   // configure gs command
-  const gsCommand = 'gs'
+  const gsCommand =
+    (process.platform === 'win32' &&
+      ((shell.which('gswin64c') && 'gswin64c') ||
+        (shell.which('gswin32c') && 'gswin32c'))) ||
+    'gs'
   const gsOptions = [
     '-dPDFX',
     '-dBATCH',

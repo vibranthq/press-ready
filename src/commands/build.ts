@@ -1,4 +1,4 @@
-import path from 'path'
+import path from 'upath'
 import chalk from 'chalk'
 import Table from 'cli-table'
 import { isPdfFontsAvailable } from '../pdffonts'
@@ -15,19 +15,33 @@ export async function build(args: Args) {
   if (!isGhostscriptAvailable()) {
     throw new Error(`'gs' command missing. Install Ghostscript on your machine.
 macOS:
-$ brew install ghostscript
+    $ brew install ghostscript
 
 Ubuntu:
-$ apt-get install ghostscript
+    $ apt-get install ghostscript
+
+Windows:
+    Download and install the Ghostscript for Windows at
+    https://www.ghostscript.com/download/gsdnld.html
+    Then, add the installed Ghostscript's bin directory
+    (e.g., "C:\\Program Files\\gs\\gs9.52\\bin")
+    to the PATH environment variable.
 `)
   }
   if (!isPdfFontsAvailable()) {
     throw new Error(`'pdffonts' command missing. Install pdffonts on your machine.
 macOS:
-$ brew install xpdf
+    $ brew install xpdf
 
 Ubuntu:
-$ apt-get install poppler-utils
+    $ apt-get install poppler-utils
+
+Windows:
+    Download and install the Xpdf command line tools for Windows at
+    http://www.xpdfreader.com/download.html
+    Then, add the installed Xpdf's bin directory
+    (e.g., "C:\\xpdf-tools-win-4.02\\bin64")
+    to the PATH environment variable.
 `)
   }
   const resolvedInput = path.resolve(args.input)
