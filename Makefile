@@ -38,3 +38,6 @@ test-lint: build
 
 run: build
 	docker run --rm -it -v ${CURDIR}:/workdir --entrypoint bash vibranthq/press-ready
+
+clean:
+	docker rmi vibranthq/press-ready
