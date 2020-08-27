@@ -1,7 +1,7 @@
 {
   "name": "press-ready",
   "description": "Make your PDFs compliant with press-ready PDF/X-1a.",
-  "version": "4.0.2",
+  "version": "4.0.3",
   "author": "Yasuaki Uechi <y@uechi.io> (https://uechi.io/)",
   "scripts": {
     "build": "tsc && shx chmod +x lib/cli.js",
