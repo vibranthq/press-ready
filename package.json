@@ -32,7 +32,7 @@
     "shelljs": "^0.8.3",
     "upath": "^1.2.0",
     "uuid": "^8.1.0",
-    "yargs": "^15.1.0"
+    "yargs": "^16.2.0"
   },
   "devDependencies": {
     "@release-it/conventional-changelog": "^2.0.0",
